@@ -1,0 +1,695 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isEnumeration": "cr:isEnumeration",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+  "alternateName": "Olist raw columns used by the causal pillar KPI set (pruned) plus grouping keys",
+  "citeAs": "10.34740/kaggle/dsv/195341",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": {
+    "@type": "sc:CreativeWork",
+    "name": "CC BY-NC-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "distribution": [
+    {
+      "contentUrl": "olist_orders_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_orders_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_orders_dataset.csv",
+      "description": "Core order table. One row per order; all order statuses are kept so cancellation KPIs are defined."
+    },
+    {
+      "contentUrl": "olist_order_items_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_order_items_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_items_dataset.csv",
+      "description": "Items purchased within each order (one row per item), with price, freight and shipping limit."
+    },
+    {
+      "contentUrl": "olist_order_payments_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_order_payments_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_payments_dataset.csv",
+      "description": "Payment records for each order (one row per payment sequential)."
+    },
+    {
+      "contentUrl": "olist_order_reviews_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_order_reviews_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_reviews_dataset.csv",
+      "description": "Customer satisfaction survey per order; holds the target review_score (1-5)."
+    },
+    {
+      "contentUrl": "olist_products_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_products_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_products_dataset.csv",
+      "description": "Product attributes: listing richness and physical dimensions."
+    },
+    {
+      "contentUrl": "olist_customers_dataset.csv",
+      "encodingFormat": "text/csv",
+      "@id": "olist_customers_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_customers_dataset.csv",
+      "description": "Customer key and location; supplies the customer_state grouping key for segment grading."
+    }
+  ],
+  "recordSet": [
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_id"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_id",
+          "@type": "cr:Field",
+          "name": "order_id",
+          "description": "unique identifier of the order."
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "customer_id"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/customer_id",
+          "@type": "cr:Field",
+          "name": "customer_id",
+          "description": "key to olist_customers_dataset.csv. Each order has a unique customer_id."
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_status"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_status",
+          "@type": "cr:Field",
+          "name": "order_status",
+          "description": "Reference to the order status (delivered, shipped, etc). Used to filter the panel to delivered orders."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_purchase_timestamp"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp",
+          "@type": "cr:Field",
+          "name": "order_purchase_timestamp",
+          "description": "Shows the purchase timestamp."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_approved_at"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_approved_at",
+          "@type": "cr:Field",
+          "name": "order_approved_at",
+          "description": "Shows the payment approval timestamp."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_delivered_carrier_date"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date",
+          "@type": "cr:Field",
+          "name": "order_delivered_carrier_date",
+          "description": "Shows the order posting timestamp. When it was handled to the logistic partner."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_delivered_customer_date"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date",
+          "@type": "cr:Field",
+          "name": "order_delivered_customer_date",
+          "description": "Shows the actual order delivery date to the customer."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_orders_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_estimated_delivery_date"
+            }
+          },
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date",
+          "@type": "cr:Field",
+          "name": "order_estimated_delivery_date",
+          "description": "Shows the estimated delivery date that was informed to customer at the purchase moment."
+        }
+      ],
+      "@id": "olist_orders_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_orders_dataset.csv",
+      "description": "Core order table. One row per order; all order statuses are kept so cancellation KPIs are defined."
+    },
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_id"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/order_id",
+          "@type": "cr:Field",
+          "name": "order_id",
+          "description": "order unique identifier"
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_id"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/product_id",
+          "@type": "cr:Field",
+          "name": "product_id",
+          "description": "product unique identifier; join key to olist_products_dataset.csv"
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "seller_id"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/seller_id",
+          "@type": "cr:Field",
+          "name": "seller_id",
+          "description": "seller unique identifier; supplies the seller_id grouping key for segment grading (primary seller = the one with the most items in the order)."
+        },
+        {
+          "dataType": [
+            "sc:DateTime"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "shipping_limit_date"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/shipping_limit_date",
+          "@type": "cr:Field",
+          "name": "shipping_limit_date",
+          "description": "Shows the seller shipping limit date for handling the order over to the logistic partner."
+        },
+        {
+          "dataType": [
+            "sc:Float"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "price"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/price",
+          "@type": "cr:Field",
+          "name": "price",
+          "description": "item price"
+        },
+        {
+          "dataType": [
+            "sc:Float"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_items_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "freight_value"
+            }
+          },
+          "@id": "olist_order_items_dataset.csv/freight_value",
+          "@type": "cr:Field",
+          "name": "freight_value",
+          "description": "item freight value item (if an order has more than one item the freight value is splitted between items)"
+        }
+      ],
+      "@id": "olist_order_items_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_items_dataset.csv",
+      "description": "Items purchased within each order (one row per item), with price, freight and shipping limit."
+    },
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_payments_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_id"
+            }
+          },
+          "@id": "olist_order_payments_dataset.csv/order_id",
+          "@type": "cr:Field",
+          "name": "order_id",
+          "description": "unique identifier of an order."
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_payments_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "payment_sequential"
+            }
+          },
+          "@id": "olist_order_payments_dataset.csv/payment_sequential",
+          "@type": "cr:Field",
+          "name": "payment_sequential",
+          "description": "a customer may pay an order with more than one payment method. If he does so, a sequence will be created to accommodate all payments."
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_payments_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "payment_installments"
+            }
+          },
+          "@id": "olist_order_payments_dataset.csv/payment_installments",
+          "@type": "cr:Field",
+          "name": "payment_installments",
+          "description": "number of installments chosen by the customer."
+        }
+      ],
+      "@id": "olist_order_payments_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_payments_dataset.csv",
+      "description": "Payment records for each order (one row per payment sequential)."
+    },
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_reviews_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "review_id"
+            }
+          },
+          "@id": "olist_order_reviews_dataset.csv/review_id",
+          "@type": "cr:Field",
+          "name": "review_id",
+          "description": "unique review identifier"
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_reviews_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "order_id"
+            }
+          },
+          "@id": "olist_order_reviews_dataset.csv/order_id",
+          "@type": "cr:Field",
+          "name": "order_id",
+          "description": "unique order identifier"
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_reviews_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "review_score"
+            }
+          },
+          "@id": "olist_order_reviews_dataset.csv/review_score",
+          "@type": "cr:Field",
+          "name": "review_score",
+          "description": "Note ranging from 1 to 5 given by the customer on a satisfaction survey. Target of the causal model."
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_reviews_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "review_comment_title"
+            }
+          },
+          "@id": "olist_order_reviews_dataset.csv/review_comment_title",
+          "@type": "cr:Field",
+          "name": "review_comment_title",
+          "description": "Comment title from the review left by the customer, in Portuguese."
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_order_reviews_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "review_comment_message"
+            }
+          },
+          "@id": "olist_order_reviews_dataset.csv/review_comment_message",
+          "@type": "cr:Field",
+          "name": "review_comment_message",
+          "description": "Comment message from the review left by the customer, in Portuguese."
+        }
+      ],
+      "@id": "olist_order_reviews_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_reviews_dataset.csv",
+      "description": "Customer satisfaction survey per order; holds the target review_score (1-5)."
+    },
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_id"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_id",
+          "@type": "cr:Field",
+          "name": "product_id",
+          "description": "unique product identifier; join key from olist_order_items_dataset.csv"
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_description_lenght"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_description_lenght",
+          "@type": "cr:Field",
+          "name": "product_description_lenght",
+          "description": "number of characters extracted from the product description."
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_photos_qty"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_photos_qty",
+          "@type": "cr:Field",
+          "name": "product_photos_qty",
+          "description": "number of product published photos"
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_length_cm"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_length_cm",
+          "@type": "cr:Field",
+          "name": "product_length_cm",
+          "description": "product length measured in centimeters."
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_height_cm"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_height_cm",
+          "@type": "cr:Field",
+          "name": "product_height_cm",
+          "description": "product height measured in centimeters."
+        },
+        {
+          "dataType": [
+            "sc:Integer"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_products_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "product_width_cm"
+            }
+          },
+          "@id": "olist_products_dataset.csv/product_width_cm",
+          "@type": "cr:Field",
+          "name": "product_width_cm",
+          "description": "product width measured in centimeters."
+        }
+      ],
+      "@id": "olist_products_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_products_dataset.csv",
+      "description": "Product attributes: listing richness and physical dimensions."
+    },
+    {
+      "field": [
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_customers_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "customer_id"
+            }
+          },
+          "@id": "olist_customers_dataset.csv/customer_id",
+          "@type": "cr:Field",
+          "name": "customer_id",
+          "description": "key to the orders dataset. Each order has a unique customer_id."
+        },
+        {
+          "dataType": [
+            "sc:Text"
+          ],
+          "source": {
+            "fileObject": {
+              "@id": "olist_customers_dataset.csv_fileobject"
+            },
+            "extract": {
+              "column": "customer_state"
+            }
+          },
+          "@id": "olist_customers_dataset.csv/customer_state",
+          "@type": "cr:Field",
+          "name": "customer_state",
+          "description": "customer state; grouping key for segment grading."
+        }
+      ],
+      "@id": "olist_customers_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_customers_dataset.csv",
+      "description": "Customer key and location; supplies the customer_state grouping key for segment grading."
+    }
+  ],
+  "version": 2,
+  "keywords": [
+    "technique > exploratory data analysis",
+    "subject > people and society > business"
+  ],
+  "identifier": "10.34740/kaggle/dsv/195341",
+  "isAccessibleForFree": true,
+  "includedInDataCatalog": {
+    "@type": "sc:DataCatalog",
+    "name": "Kaggle",
+    "url": "https://www.kaggle.com"
+  },
+  "creator": {
+    "@type": "sc:Organization",
+    "name": "Olist",
+    "url": "https://www.kaggle.com/organizations/olistbr",
+    "image": "https://storage.googleapis.com/kaggle-organizations/1942/thumbnail.png?r=51"
+  },
+  "publisher": {
+    "@type": "sc:Organization",
+    "name": "Kaggle",
+    "url": "https://www.kaggle.com/organizations/kaggle",
+    "image": "https://storage.googleapis.com/kaggle-organizations/4/thumbnail.png"
+  },
+  "thumbnailUrl": "https://storage.googleapis.com/kaggle-datasets-images/55151/105464/d59245a7014a35a35cc7f7b721de4dae/dataset-card.png?t=2018-09-21-16-21-21",
+  "dateModified": "2021-10-01T19:08:27.97",
+  "datePublished": "2018-09-21T15:23:38.59",
+  "@type": "sc:Dataset",
+  "name": "Brazilian E-Commerce Public Dataset by Olist (pruned to causal pillar columns)",
+  "url": "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/versions/2",
+  "description": "Subset of the Olist dataset limited to the 6 CSV files and 30 columns referenced by the causal pillar KPI set (Delivery, Seller, Product, Payments, Reviews) plus the grouping keys seller_id / customer_id / customer_state. The analysis unit is one delivered order; review_score is the causal target."
+}

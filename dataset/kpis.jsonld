@@ -1,0 +1,465 @@
+{
+  "@context": {
+    "kpi": "https://olist.local/kpi/"
+  },
+  "name": "Olist causal pillar KPI metamodel",
+
+  "grain": ["order_id"],
+
+  "tables": {
+    "orders":    "olist_orders_dataset.csv",
+    "items":     "olist_order_items_dataset.csv",
+    "products":  "olist_products_dataset.csv",
+    "payments":  "olist_order_payments_dataset.csv",
+    "reviews":   "olist_order_reviews_dataset.csv",
+    "customers": "olist_customers_dataset.csv"
+  },
+
+  "pillars": [
+    { "name": "Delivery",      "stage": "operational" },
+    { "name": "Seller",        "stage": "operational" },
+    { "name": "Product",       "stage": "operational" },
+    { "name": "Payments",      "stage": "operational" },
+    { "name": "Cancellations", "stage": "operational" },
+    { "name": "Reviews",       "stage": "post_outcome" }
+  ],
+
+  "collinear": [
+    ["TOTAL_PRICE", "ORDER_REVENUE"]
+  ],
+
+  "contextVariables": [
+    {
+      "id": "TOTAL_PRICE",
+      "expression": "sum(items.price)",
+      "role": "context"
+    },
+    {
+      "id": "N_ITEMS",
+      "expression": "count(items.order_item_id)",
+      "role": "context"
+    },
+    {
+      "id": "N_SELLERS",
+      "expression": "nunique(items.seller_id)",
+      "role": null
+    },
+    {
+      "id": "ORDER_COMPLEXITY",
+      "expression": "N_ITEMS * N_SELLERS",
+      "role": "context"
+    },
+    {
+      "id": "SEASON_MONTH",
+      "expression": "month(orders.order_purchase_timestamp)",
+      "role": "context"
+    },
+    {
+      "id": "PURCHASE_YM",
+      "expression": "year(orders.order_purchase_timestamp) * 12 + month(orders.order_purchase_timestamp)",
+      "role": "context"
+    },
+    {
+      "id": "customer_state",
+      "expression": "customers.customer_state",
+      "role": "segment_alt"
+    },
+    {
+      "id": "primary_seller",
+      "expression": "mode(items.seller_id)",
+      "role": "segment"
+    }
+  ],
+
+  "hasPart": [
+    {
+      "@id": "kpi:DELIVERY_DAYS",
+      "@type": "Indicator",
+      "name": "Delivery Days",
+      "unit": "Days",
+      "pillar": "Delivery",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "days(orders.order_delivered_customer_date - orders.order_purchase_timestamp)",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_delivered_customer_date" },
+          { "csv": "olist_orders_dataset.csv", "column": "order_purchase_timestamp" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "(order_delivered_customer_date - order_purchase_timestamp) / 86400, by order_id"
+    },
+    {
+      "@id": "kpi:DELAY_DAYS",
+      "@type": "Indicator",
+      "name": "Delay Days",
+      "unit": "Days",
+      "pillar": "Delivery",
+      "direction": "lower_better",
+      "isParent": "yes",
+      "isChild": "no",
+      "expression": "days(date(orders.order_delivered_customer_date) - date(orders.order_estimated_delivery_date))",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_delivered_customer_date" },
+          { "csv": "olist_orders_dataset.csv", "column": "order_estimated_delivery_date" }
+        ]
+      },
+      "parents": [],
+      "children": ["kpi:IS_ON_TIME"],
+      "formula": "calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id"
+    },
+    {
+      "@id": "kpi:IS_ON_TIME",
+      "@type": "Indicator",
+      "name": "Is On Time",
+      "unit": "0/1 flag",
+      "pillar": "Delivery",
+      "direction": "higher_better",
+      "isParent": "no",
+      "isChild": "yes",
+      "expression": "DELAY_DAYS <= 0",
+      "derivedFrom": {
+        "record": "kpi:DELAY_DAYS",
+        "source": [{ "kpi": "kpi:DELAY_DAYS" }]
+      },
+      "parents": ["kpi:DELAY_DAYS"],
+      "children": [],
+      "formula": "1 if DELAY_DAYS <= 0 else 0"
+    },
+    {
+      "@id": "kpi:APPROVAL_HOURS",
+      "@type": "Indicator",
+      "name": "Approval Hours",
+      "unit": "Hours",
+      "pillar": "Seller",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "hours(orders.order_approved_at - orders.order_purchase_timestamp)",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_approved_at" },
+          { "csv": "olist_orders_dataset.csv", "column": "order_purchase_timestamp" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "(order_approved_at - order_purchase_timestamp) / 3600, by order_id"
+    },
+    {
+      "@id": "kpi:PROCESSING_DAYS",
+      "@type": "Indicator",
+      "name": "Processing Days",
+      "unit": "Days",
+      "pillar": "Seller",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "days(orders.order_delivered_carrier_date - orders.order_approved_at)",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_delivered_carrier_date" },
+          { "csv": "olist_orders_dataset.csv", "column": "order_approved_at" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "(order_delivered_carrier_date - order_approved_at) / 86400, by order_id"
+    },
+    {
+      "@id": "kpi:SHIP_LIMIT_MET",
+      "@type": "Indicator",
+      "name": "Ship Limit Met",
+      "unit": "0/1 flag",
+      "pillar": "Seller",
+      "direction": "higher_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "orders.order_delivered_carrier_date <= min(items.shipping_limit_date)",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_delivered_carrier_date" },
+          { "csv": "olist_order_items_dataset.csv", "column": "shipping_limit_date" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "1 if order_delivered_carrier_date <= min(shipping_limit_date by order_id) else 0"
+    },
+    {
+      "@id": "kpi:PHOTOS_QTY",
+      "@type": "Indicator",
+      "name": "Photos Qty",
+      "unit": "Count",
+      "pillar": "Product",
+      "direction": "higher_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "mean(products.product_photos_qty)",
+      "derivedFrom": {
+        "record": "olist_products_dataset.csv",
+        "source": [
+          { "csv": "olist_products_dataset.csv", "column": "product_photos_qty" },
+          { "csv": "olist_order_items_dataset.csv", "column": "product_id" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "mean(product_photos_qty) over the products in the order (join order_items.product_id -> products.product_id), by order_id"
+    },
+    {
+      "@id": "kpi:DESCRIPTION_LENGTH",
+      "@type": "Indicator",
+      "name": "Description Length",
+      "unit": "Count",
+      "pillar": "Product",
+      "direction": "higher_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "mean(products.product_description_lenght)",
+      "derivedFrom": {
+        "record": "olist_products_dataset.csv",
+        "source": [
+          { "csv": "olist_products_dataset.csv", "column": "product_description_lenght" },
+          { "csv": "olist_order_items_dataset.csv", "column": "product_id" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "mean(product_description_lenght) over the products in the order, by order_id"
+    },
+    {
+      "@id": "kpi:PRODUCT_VOLUME_CM3",
+      "@type": "Indicator",
+      "name": "Product Volume Cm3",
+      "unit": "Cubic centimetres",
+      "pillar": "Product",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "mean(products.product_length_cm * products.product_height_cm * products.product_width_cm)",
+      "derivedFrom": {
+        "record": "olist_products_dataset.csv",
+        "source": [
+          { "csv": "olist_products_dataset.csv", "column": "product_length_cm" },
+          { "csv": "olist_products_dataset.csv", "column": "product_height_cm" },
+          { "csv": "olist_products_dataset.csv", "column": "product_width_cm" },
+          { "csv": "olist_order_items_dataset.csv", "column": "product_id" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "mean(product_length_cm * product_height_cm * product_width_cm) over the products in the order, by order_id"
+    },
+    {
+      "@id": "kpi:PRODUCT_WEIGHT_G",
+      "@type": "Indicator",
+      "name": "Product Weight G",
+      "unit": "Grams",
+      "pillar": "Product",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "mean(products.product_weight_g)",
+      "derivedFrom": {
+        "record": "olist_products_dataset.csv",
+        "source": [
+          { "csv": "olist_products_dataset.csv", "column": "product_weight_g" },
+          { "csv": "olist_order_items_dataset.csv", "column": "product_id" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "mean(product_weight_g) over the products in the order, by order_id"
+    },
+    {
+      "@id": "kpi:FREIGHT_RATIO",
+      "@type": "Indicator",
+      "name": "Freight Ratio",
+      "unit": "Ratio",
+      "pillar": "Payments",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "sum(items.freight_value) / sum(items.price)",
+      "derivedFrom": {
+        "record": "olist_order_items_dataset.csv",
+        "source": [
+          { "csv": "olist_order_items_dataset.csv", "column": "freight_value" },
+          { "csv": "olist_order_items_dataset.csv", "column": "price" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "sum(freight_value) / sum(price), by order_id"
+    },
+    {
+      "@id": "kpi:MAX_INSTALLMENTS",
+      "@type": "Indicator",
+      "name": "Max Installments",
+      "unit": "Count",
+      "pillar": "Payments",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "max(payments.payment_installments)",
+      "derivedFrom": {
+        "record": "olist_order_payments_dataset.csv",
+        "source": [
+          { "csv": "olist_order_payments_dataset.csv", "column": "payment_installments" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "max(payment_installments), by order_id"
+    },
+    {
+      "@id": "kpi:PAYMENT_SEQUENTIAL_COUNT",
+      "@type": "Indicator",
+      "name": "Payment Sequential Count",
+      "unit": "Count",
+      "pillar": "Payments",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "max(payments.payment_sequential)",
+      "derivedFrom": {
+        "record": "olist_order_payments_dataset.csv",
+        "source": [
+          { "csv": "olist_order_payments_dataset.csv", "column": "payment_sequential" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "max(payment_sequential), by order_id"
+    },
+    {
+      "@id": "kpi:USED_VOUCHER",
+      "@type": "Indicator",
+      "name": "Used Voucher",
+      "unit": "0/1 flag",
+      "pillar": "Payments",
+      "direction": "diagnostic",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "any(lower(payments.payment_type) == 'voucher')",
+      "derivedFrom": {
+        "record": "olist_order_payments_dataset.csv",
+        "source": [
+          { "csv": "olist_order_payments_dataset.csv", "column": "payment_type" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "1 if any payment row for the order has payment_type == 'voucher' else 0, by order_id"
+    },
+    {
+      "@id": "kpi:ORDER_REVENUE",
+      "@type": "Indicator",
+      "name": "Order Revenue",
+      "unit": "Currency",
+      "pillar": "Payments",
+      "direction": "higher_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "sum(payments.payment_value)",
+      "derivedFrom": {
+        "record": "olist_order_payments_dataset.csv",
+        "source": [
+          { "csv": "olist_order_payments_dataset.csv", "column": "payment_value" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "sum(payment_value), by order_id"
+    },
+    {
+      "@id": "kpi:IS_CANCELED",
+      "@type": "Indicator",
+      "name": "Is Canceled",
+      "unit": "0/1 flag",
+      "pillar": "Cancellations",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "lower(orders.order_status) == 'canceled'",
+      "derivedFrom": {
+        "record": "olist_orders_dataset.csv",
+        "source": [
+          { "csv": "olist_orders_dataset.csv", "column": "order_status" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "1 if order_status == 'canceled' else 0, by order_id"
+    },
+    {
+      "@id": "kpi:REVIEW_SCORE",
+      "@type": "Indicator",
+      "name": "Review Score",
+      "unit": "Score",
+      "pillar": "Reviews",
+      "direction": "higher_better",
+      "isParent": "yes",
+      "isChild": "no",
+      "expression": "mean(reviews.review_score)",
+      "derivedFrom": {
+        "record": "olist_order_reviews_dataset.csv",
+        "source": [
+          { "csv": "olist_order_reviews_dataset.csv", "column": "review_score" }
+        ]
+      },
+      "parents": [],
+      "children": ["kpi:IS_NEGATIVE_REVIEW"],
+      "formula": "review_score (1-5), by order_id (mean if multiple review rows per order)"
+    },
+    {
+      "@id": "kpi:IS_NEGATIVE_REVIEW",
+      "@type": "Indicator",
+      "name": "Is Negative Review",
+      "unit": "0/1 flag",
+      "pillar": "Reviews",
+      "direction": "lower_better",
+      "isParent": "no",
+      "isChild": "yes",
+      "expression": "REVIEW_SCORE <= 2",
+      "derivedFrom": {
+        "record": "kpi:REVIEW_SCORE",
+        "source": [{ "kpi": "kpi:REVIEW_SCORE" }]
+      },
+      "parents": ["kpi:REVIEW_SCORE"],
+      "children": [],
+      "formula": "1 if REVIEW_SCORE <= 2 else 0"
+    },
+    {
+      "@id": "kpi:HAS_COMMENT",
+      "@type": "Indicator",
+      "name": "Has Comment",
+      "unit": "0/1 flag",
+      "pillar": "Reviews",
+      "direction": "diagnostic",
+      "isParent": "no",
+      "isChild": "no",
+      "expression": "any(notblank(reviews.review_comment_title) or notblank(reviews.review_comment_message))",
+      "derivedFrom": {
+        "record": "olist_order_reviews_dataset.csv",
+        "source": [
+          { "csv": "olist_order_reviews_dataset.csv", "column": "review_comment_title" },
+          { "csv": "olist_order_reviews_dataset.csv", "column": "review_comment_message" }
+        ]
+      },
+      "parents": [],
+      "children": [],
+      "formula": "1 if review_comment_title or review_comment_message is non-empty else 0, by order_id"
+    }
+  ]
+}

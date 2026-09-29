@@ -1,0 +1,6 @@
+# Core scientific stack used by the KPI / causal pipeline
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+networkx>=3.0
+matplotlib>=3.7

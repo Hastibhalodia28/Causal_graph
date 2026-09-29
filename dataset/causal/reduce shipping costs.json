@@ -1,0 +1,52 @@
+[
+  {
+    "id": "kpi:PRODUCT_VOLUME_CM3",
+    "name": "PRODUCT_VOLUME_CM3",
+    "sector": {
+      "id": "sector:product",
+      "name": "Product"
+    },
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:DELIVERY_DAYS",
+    "name": "DELIVERY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
+    },
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:FREIGHT_RATIO",
+    "name": "FREIGHT_RATIO",
+    "sector": {
+      "id": "sector:payments",
+      "name": "Payments"
+    },
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:DELAY_DAYS",
+    "name": "DELAY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
+    },
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:IS_ON_TIME",
+    "name": "IS_ON_TIME",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
+    },
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  }
+]

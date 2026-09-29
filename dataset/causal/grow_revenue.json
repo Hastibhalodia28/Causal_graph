@@ -1,0 +1,75 @@
+{
+  "target": "kpi:ORDER_REVENUE",
+  "kpis": [
+    {
+      "id": "kpi:ORDER_REVENUE",
+      "name": "ORDER_REVENUE",
+      "sector": {
+        "id": "sector:payments",
+        "name": "Payments"
+      },
+      "relevance": 3,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:FREIGHT_RATIO",
+      "name": "FREIGHT_RATIO",
+      "sector": {
+        "id": "sector:payments",
+        "name": "Payments"
+      },
+      "relevance": 3,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:MAX_INSTALLMENTS",
+      "name": "MAX_INSTALLMENTS",
+      "sector": {
+        "id": "sector:payments",
+        "name": "Payments"
+      },
+      "relevance": 2,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:PAYMENT_SEQUENTIAL_COUNT",
+      "name": "PAYMENT_SEQUENTIAL_COUNT",
+      "sector": {
+        "id": "sector:payments",
+        "name": "Payments"
+      },
+      "relevance": 2,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:DELIVERY_DAYS",
+      "name": "DELIVERY_DAYS",
+      "sector": {
+        "id": "sector:delivery",
+        "name": "Delivery"
+      },
+      "relevance": 2,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:APPROVAL_HOURS",
+      "name": "APPROVAL_HOURS",
+      "sector": {
+        "id": "sector:seller",
+        "name": "Seller"
+      },
+      "relevance": 2,
+      "classification": "DIRECT"
+    },
+    {
+      "id": "kpi:PHOTOS_QTY",
+      "name": "PHOTOS_QTY",
+      "sector": {
+        "id": "sector:product",
+        "name": "Product"
+      },
+      "relevance": 2,
+      "classification": "DIRECT"
+    }
+  ]
+}

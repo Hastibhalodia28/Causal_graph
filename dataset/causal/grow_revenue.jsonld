@@ -1,0 +1,356 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "kpi": "https://example.org/kpi/",
+    "data": "https://example.org/dataset/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "hasKPI": {
+      "@id": "kpi:hasKPI",
+      "@type": "@id"
+    },
+    "sector": {
+      "@id": "kpi:sector",
+      "@type": "@id"
+    },
+    "parentKPI": {
+      "@id": "kpi:parentKPI",
+      "@type": "@id"
+    },
+    "childKPI": {
+      "@id": "kpi:childKPI",
+      "@type": "@id"
+    },
+    "hasChild": "kpi:hasChild",
+    "derivedFrom": "kpi:derivedFrom",
+    "dataField": {
+      "@id": "kpi:dataField",
+      "@type": "@id"
+    },
+    "formula": "kpi:formula",
+    "expression": "kpi:expression",
+    "inputs": "kpi:inputs",
+    "explanation": "kpi:explanation",
+    "cr": "http://mlcommons.org/croissant/",
+    "sc": "https://schema.org/",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "column": "cr:column",
+    "fileObject": "cr:fileObject",
+    "field": "cr:field",
+    "recordSet": "cr:recordSet",
+    "@version": 1.1,
+    "@base": "https://example.org/dataset/",
+    "rec": "urn:kpi-recommendation:",
+    "contentUrl": "schema:contentUrl",
+    "encodingFormat": "schema:encodingFormat"
+  },
+  "@graph": [
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:0",
+      "@type": "rec:Dimension",
+      "rec:position": 0,
+      "name": "customer acquisition",
+      "description": "Evaluates the effectiveness of strategies to attract new paying customers, which directly contributes to revenue growth."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:1",
+      "@type": "rec:Dimension",
+      "rec:position": 1,
+      "name": "purchase frequency",
+      "description": "Measures how often existing customers make purchases; increasing frequency without new customers grows revenue."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:2",
+      "@type": "rec:Dimension",
+      "rec:position": 2,
+      "name": "basket value",
+      "description": "Assesses the monetary value of each transaction; increasing the amount spent per purchase directly increases revenue."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3",
+      "@type": "rec:Dimension",
+      "rec:position": 3,
+      "name": "customer retention",
+      "description": "Examines the ability to keep existing customers over time, as retained customers provide recurring revenue."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:4",
+      "@type": "rec:Dimension",
+      "rec:position": 4,
+      "name": "pricing structure",
+      "description": "Investigates the setup of prices, discounts, and tiers, as changes here can directly impact revenue per unit sold."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:5",
+      "@type": "rec:Dimension",
+      "rec:position": 5,
+      "name": "sales channel performance",
+      "description": "Compares the contribution of different avenues (e.g., online, in-store, partner) to overall revenue generation."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:6",
+      "@type": "rec:Dimension",
+      "rec:position": 6,
+      "name": "product or service mix",
+      "description": "Analyzes the contribution of different offerings to total revenue, identifying high and low-performing categories."
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:goal",
+      "@type": "rec:Goal",
+      "rec:objective": "improve",
+      "rec:target": "revenue",
+      "rec:domain": "business performance",
+      "rec:needsDecomposition": true
+    },
+    {
+      "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4",
+      "@type": "rec:KPIAnalysis",
+      "rec:query": "Grow revenue",
+      "rec:summary": "The KPIs REVIEW_SCORE and IS_NEGATIVE_REVIEW provide diagnostic evidence for customer retention, which is a factor in revenue growth. REVIEW_SCORE offers insight into customer satisfaction levels, while IS_NEGATIVE_REVIEW specifically identifies negative feedback (scores \u22642), both of which are indicators of customer loyalty and the likelihood of repeat business.",
+      "rec:hasDimension": [
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:6"
+        }
+      ],
+      "rec:recommends": [
+        {
+          "@id": "kpi:ORDER_REVENUE"
+        },
+        {
+          "@id": "kpi:FREIGHT_RATIO"
+        },
+        {
+          "@id": "kpi:MAX_INSTALLMENTS"
+        },
+        {
+          "@id": "kpi:PAYMENT_SEQUENTIAL_COUNT"
+        },
+        {
+          "@id": "kpi:DELIVERY_DAYS"
+        },
+        {
+          "@id": "kpi:APPROVAL_HOURS"
+        },
+        {
+          "@id": "kpi:PHOTOS_QTY"
+        }
+      ],
+      "rec:goal": {
+        "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:goal"
+      },
+      "rec:target": {
+        "@id": "kpi:ORDER_REVENUE"
+      }
+    },
+    {
+      "@id": "sector:reviews",
+      "@type": "kpi:Sector",
+      "name": "Reviews"
+    },
+    {
+      "@id": "kpi:IS_NEGATIVE_REVIEW",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_NEGATIVE_REVIEW",
+      "description": "Is Negative Review. Derived from parent KPI row(s). Computed as 1 if REVIEW_SCORE <= 2 else 0. Unit: 0/1 flag.",
+      "rec:position": 0,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer retention"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "customer retention",
+          "rec:reason": "Strong diagnostic evidence for customer retention. Negative reviews (scores \u22642) are strong indicators of customer dissatisfaction, which directly correlates with churn risk and reduced likelihood of repeat business."
+        }
+      ],
+      "rec:evidenceName": "IS_NEGATIVE_REVIEW",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "1 if REVIEW_SCORE <= 2 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:REVIEW_SCORE"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:REVIEW_SCORE"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": []
+    },
+    {
+      "@id": "kpi:REVIEW_SCORE",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "REVIEW_SCORE",
+      "description": "Review Score. Collected from Olist source columns. Computed as review_score (1-5), by order_id (mean if multiple review rows per order). Unit: Score.",
+      "rec:position": 1,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer retention"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "customer retention",
+          "rec:reason": "Strong diagnostic evidence for customer retention. Review scores provide direct insight into customer satisfaction levels, which are predictive of customer loyalty and likelihood to make repeat purchases."
+        }
+      ],
+      "rec:evidenceName": "REVIEW_SCORE",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "review_score (1-5), by order_id (mean if multiple review rows per order)"
+      },
+      "parentKPI": [],
+      "childKPI": [
+        {
+          "@id": "kpi:IS_NEGATIVE_REVIEW"
+        }
+      ],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_score"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_score"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_reviews_dataset.csv",
+      "contentUrl": "olist_order_reviews_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_reviews_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_score"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_score",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_score",
+      "description": "Note ranging from 1 to 5 given by the customer on a satisfaction survey. Target of the causal model.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_score"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    }
+  ]
+}

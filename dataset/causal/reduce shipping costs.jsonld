@@ -1,0 +1,889 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "kpi": "https://example.org/kpi/",
+    "data": "https://example.org/dataset/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "hasKPI": {
+      "@id": "kpi:hasKPI",
+      "@type": "@id"
+    },
+    "sector": {
+      "@id": "kpi:sector",
+      "@type": "@id"
+    },
+    "parentKPI": {
+      "@id": "kpi:parentKPI",
+      "@type": "@id"
+    },
+    "childKPI": {
+      "@id": "kpi:childKPI",
+      "@type": "@id"
+    },
+    "hasChild": "kpi:hasChild",
+    "derivedFrom": "kpi:derivedFrom",
+    "dataField": {
+      "@id": "kpi:dataField",
+      "@type": "@id"
+    },
+    "formula": "kpi:formula",
+    "expression": "kpi:expression",
+    "inputs": "kpi:inputs",
+    "explanation": "kpi:explanation",
+    "cr": "http://mlcommons.org/croissant/",
+    "sc": "https://schema.org/",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "column": "cr:column",
+    "fileObject": "cr:fileObject",
+    "field": "cr:field",
+    "recordSet": "cr:recordSet",
+    "@version": 1.1,
+    "@base": "https://example.org/dataset/",
+    "rec": "urn:kpi-recommendation:",
+    "contentUrl": "schema:contentUrl",
+    "encodingFormat": "schema:encodingFormat"
+  },
+  "@graph": [
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:0",
+      "@type": "rec:Dimension",
+      "rec:position": 0,
+      "name": "shipping distance",
+      "description": "The physical distance a package travels is a primary driver of cost, as it directly impacts fuel consumption, labor hours, and carrier zone charges."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1",
+      "@type": "rec:Dimension",
+      "rec:position": 1,
+      "name": "package dimensions",
+      "description": "The size and volumetric weight of a package determine the space it occupies in a vehicle, which affects shipping rates and the number of packages that can be transported per trip."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:2",
+      "@type": "rec:Dimension",
+      "rec:position": 2,
+      "name": "package weight",
+      "description": "The actual weight of a package is a fundamental factor in cost calculations for most carriers, as heavier items require more fuel and handling effort to transport."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3",
+      "@type": "rec:Dimension",
+      "rec:position": 3,
+      "name": "shipping speed",
+      "description": "The level of service (e.g., next-day, standard ground) chosen has a significant cost implication, with expedited options being substantially more expensive than standard delivery."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:4",
+      "@type": "rec:Dimension",
+      "rec:position": 4,
+      "name": "carrier selection",
+      "description": "Different carriers (e.g., national postal service, regional providers, private companies) have varying rate structures, discounts, and surcharges for the same service."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:5",
+      "@type": "rec:Dimension",
+      "rec:position": 5,
+      "name": "shipping origin and destination type",
+      "description": "Costs differ based on whether a shipment is going to a residential or commercial address, and whether it is originating from a warehouse, store, or a third-party fulfillment center."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:6",
+      "@type": "rec:Dimension",
+      "rec:position": 6,
+      "name": "order consolidation",
+      "description": "The practice of combining multiple items from a single order into one shipment, or combining multiple orders for the same destination, can reduce the number of individual packages and lower per-shipment costs."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:7",
+      "@type": "rec:Dimension",
+      "rec:position": 7,
+      "name": "packaging material",
+      "description": "The type and amount of material used (e.g., box, poly mailer, dunnage) contribute to the total weight and size of the shipment and incur a material cost."
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:goal",
+      "@type": "rec:Goal",
+      "rec:objective": "reduce",
+      "rec:target": "shipping costs",
+      "rec:domain": "logistics/supply chain/e-commerce",
+      "rec:needsDecomposition": true
+    },
+    {
+      "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8",
+      "@type": "rec:KPIAnalysis",
+      "rec:query": "reduce shipping costs",
+      "rec:summary": "The KPIs provide diagnostic evidence for evaluating shipping cost reduction across multiple dimensions. PRODUCT_VOLUME_CM3 measures package dimensions and packaging material requirements, which are primary factors in dimensional weight pricing. DELIVERY_DAYS directly measures shipping speed service levels. FREIGHT_RATIO evaluates shipping costs relative to product value across shipping distance, package dimensions, carrier selection, and order consolidation efficiency. DELAY_DAYS and IS_ON_TIME provide evidence about shipping performance and service level adherence, which relates to cost-efficient service selection.",
+      "rec:hasDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:6"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:7"
+        }
+      ],
+      "rec:recommends": [
+        {
+          "@id": "kpi:PRODUCT_VOLUME_CM3"
+        },
+        {
+          "@id": "kpi:DELIVERY_DAYS"
+        },
+        {
+          "@id": "kpi:FREIGHT_RATIO"
+        },
+        {
+          "@id": "kpi:DELAY_DAYS"
+        },
+        {
+          "@id": "kpi:IS_ON_TIME"
+        }
+      ],
+      "rec:goal": {
+        "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:goal"
+      }
+    },
+    {
+      "@id": "sector:product",
+      "@type": "kpi:Sector",
+      "name": "Product"
+    },
+    {
+      "@id": "kpi:PRODUCT_VOLUME_CM3",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "PRODUCT_VOLUME_CM3",
+      "description": "Product Volume Cm3. Collected from Olist source columns. Computed as mean(product_length_cm * product_height_cm * product_width_cm) over the products in the order, by order_id. Unit: Cubic centimetres.",
+      "rec:position": 0,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:7"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "package dimensions",
+          "packaging material"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1"
+            }
+          ],
+          "rec:dimensionLabel": "package dimensions",
+          "rec:reason": "Directly measures the volumetric size of products in an order, which is a primary factor in determining shipping costs based on package dimensions."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:7"
+            }
+          ],
+          "rec:dimensionLabel": "packaging material",
+          "rec:reason": "Product volume is a strong diagnostic indicator for packaging material requirements. Larger product volumes typically require larger boxes and more dunnage material, which directly increases both material costs and shipping weight/dimensional weight costs."
+        }
+      ],
+      "rec:evidenceName": "PRODUCT_VOLUME_CM3",
+      "sector": {
+        "@id": "sector:product"
+      },
+      "formula": {
+        "expression": "mean(product_length_cm * product_height_cm * product_width_cm) over the products in the order, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_products_dataset.csv/product_length_cm"
+          },
+          {
+            "@id": "olist_products_dataset.csv/product_height_cm"
+          },
+          {
+            "@id": "olist_products_dataset.csv/product_width_cm"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/product_id"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_products_dataset.csv/product_length_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_height_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_width_cm"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_products_dataset.csv",
+      "contentUrl": "olist_products_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_products_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_products_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_products_dataset.csv/product_length_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_height_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_width_cm"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_length_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_length_cm",
+      "description": "product length measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_length_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_height_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_height_cm",
+      "description": "product height measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_height_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_width_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_width_cm",
+      "description": "product width measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_width_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_items_dataset.csv",
+      "contentUrl": "olist_order_items_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_items_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_items_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/product_id",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_id",
+      "description": "product unique identifier; join key to olist_products_dataset.csv",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_id"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:delivery",
+      "@type": "kpi:Sector",
+      "name": "Delivery"
+    },
+    {
+      "@id": "kpi:DELIVERY_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DELIVERY_DAYS",
+      "description": "Delivery Days. Collected from Olist source columns. Computed as (order_delivered_customer_date - order_purchase_timestamp) / 86400, by order_id. Unit: Days.",
+      "rec:position": 1,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping speed"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "shipping speed",
+          "rec:reason": "Directly measures shipping speed by calculating the total time from purchase to delivery, which directly corresponds to the level of service chosen and its cost implications."
+        }
+      ],
+      "rec:evidenceName": "DELIVERY_DAYS",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "(order_delivered_customer_date - order_purchase_timestamp) / 86400, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_orders_dataset.csv",
+      "contentUrl": "olist_orders_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_orders_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_orders_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_delivered_customer_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_delivered_customer_date",
+      "description": "Shows the actual order delivery date to the customer.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_delivered_customer_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_purchase_timestamp",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_purchase_timestamp",
+      "description": "Shows the purchase timestamp.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_purchase_timestamp"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:payments",
+      "@type": "kpi:Sector",
+      "name": "Payments"
+    },
+    {
+      "@id": "kpi:FREIGHT_RATIO",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "FREIGHT_RATIO",
+      "description": "Freight Ratio. Collected from Olist source columns. Computed as sum(freight_value) / sum(price), by order_id. Unit: Ratio.",
+      "rec:position": 2,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:6"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping distance",
+          "package dimensions",
+          "carrier selection",
+          "order consolidation"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:0"
+            }
+          ],
+          "rec:dimensionLabel": "shipping distance",
+          "rec:reason": "While not directly measuring shipping distance, freight costs are strongly correlated with distance traveled. A high freight ratio indicates higher shipping costs relative to product value, which often results from longer shipping distances. This provides strong diagnostic evidence for evaluating the impact of shipping distance on overall costs."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:1"
+            }
+          ],
+          "rec:dimensionLabel": "package dimensions",
+          "rec:reason": "Provides strong diagnostic evidence as it shows the relationship between freight costs and product price, which can be influenced by package dimensions (larger/heavier packages typically have higher freight costs)."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:4"
+            }
+          ],
+          "rec:dimensionLabel": "carrier selection",
+          "rec:reason": "The freight ratio (freight cost divided by product price) provides strong diagnostic evidence for carrier selection. Different carriers have varying rate structures and surcharges, which directly impact the freight value. A high ratio may indicate inefficient carrier selection, while a low ratio suggests cost-effective shipping choices. This KPI doesn't directly measure carrier selection but strongly indicates its effectiveness in controlling shipping costs."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "order consolidation",
+          "rec:reason": "While not a direct measure of consolidation, the freight ratio (freight cost relative to order value) provides strong diagnostic evidence. Effective order consolidation should lower the freight ratio by reducing per-shipment costs relative to the total order value."
+        }
+      ],
+      "rec:evidenceName": "FREIGHT_RATIO",
+      "sector": {
+        "@id": "sector:payments"
+      },
+      "formula": {
+        "expression": "sum(freight_value) / sum(price), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_items_dataset.csv/freight_value"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/price"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/freight_value",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "freight_value",
+      "description": "item freight value item (if an order has more than one item the freight value is splitted between items)",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "freight_value"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/price",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "price",
+      "description": "item price",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "price"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:DELAY_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DELAY_DAYS",
+      "description": "Delay Days. Collected from Olist source columns. Computed as calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id. Unit: Days.",
+      "rec:position": 3,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping speed"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "shipping speed",
+          "rec:reason": "Provides strong diagnostic evidence about shipping performance by measuring how often deliveries exceed estimated times, which can indicate inefficient shipping service selection."
+        }
+      ],
+      "rec:evidenceName": "DELAY_DAYS",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [
+        {
+          "@id": "kpi:IS_ON_TIME"
+        }
+      ],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_estimated_delivery_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_estimated_delivery_date",
+      "description": "Shows the estimated delivery date that was informed to customer at the purchase moment.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_estimated_delivery_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:IS_ON_TIME",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_ON_TIME",
+      "description": "Is On Time. Derived from parent KPI row(s). Computed as 1 if DELAY_DAYS <= 0 else 0. Unit: 0/1 flag.",
+      "rec:position": 4,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping speed"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:015f3bdc232732076f5ed1ca7a2d8debb93ef431c385cb37c8045b8166bc72c8:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "shipping speed",
+          "rec:reason": "Strong diagnostic indicator derived from DELAY_DAYS that shows whether shipping service levels are meeting expectations, which relates to cost-efficient service selection."
+        }
+      ],
+      "rec:evidenceName": "IS_ON_TIME",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "1 if DELAY_DAYS <= 0 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:DELAY_DAYS"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:DELAY_DAYS"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": []
+    }
+  ]
+}
