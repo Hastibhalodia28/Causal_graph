@@ -1,6 +1,4 @@
-{
-  "target": "kpi:ORDER_REVENUE",
-  "kpis": [
+[
     {
       "id": "kpi:ORDER_REVENUE",
       "name": "ORDER_REVENUE",
@@ -72,4 +70,3 @@
       "classification": "DIRECT"
     }
   ]
-}

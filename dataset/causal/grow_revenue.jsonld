@@ -111,7 +111,7 @@
       "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4",
       "@type": "rec:KPIAnalysis",
       "rec:query": "Grow revenue",
-      "rec:summary": "The KPIs REVIEW_SCORE and IS_NEGATIVE_REVIEW provide diagnostic evidence for customer retention, which is a factor in revenue growth. REVIEW_SCORE offers insight into customer satisfaction levels, while IS_NEGATIVE_REVIEW specifically identifies negative feedback (scores \u22642), both of which are indicators of customer loyalty and the likelihood of repeat business.",
+      "rec:summary": "The KPIs REVIEW_SCORE and IS_NEGATIVE_REVIEW provide diagnostic evidence for customer retention, which is a factor in revenue growth. REVIEW_SCORE offers insight into customer satisfaction levels, while IS_NEGATIVE_REVIEW specifically identifies negative feedback (scores ≤2), both of which are indicators of customer loyalty and the likelihood of repeat business.",
       "rec:hasDimension": [
         {
           "@id": "urn:kpi-analysis:21809844ecd6ad2c93fb25bea80b4d480f35e67beb7477da4d6b4461407f5fe4:dimension:0"
@@ -136,6 +136,12 @@
         }
       ],
       "rec:recommends": [
+        {
+          "@id": "kpi:IS_NEGATIVE_REVIEW"
+        },
+        {
+          "@id": "kpi:REVIEW_SCORE"
+        },
         {
           "@id": "kpi:ORDER_REVENUE"
         },
@@ -200,7 +206,7 @@
             }
           ],
           "rec:dimensionLabel": "customer retention",
-          "rec:reason": "Strong diagnostic evidence for customer retention. Negative reviews (scores \u22642) are strong indicators of customer dissatisfaction, which directly correlates with churn risk and reduced likelihood of repeat business."
+          "rec:reason": "Strong diagnostic evidence for customer retention. Negative reviews (scores ≤2) are strong indicators of customer dissatisfaction, which directly correlates with churn risk and reduced likelihood of repeat business."
         }
       ],
       "rec:evidenceName": "IS_NEGATIVE_REVIEW",

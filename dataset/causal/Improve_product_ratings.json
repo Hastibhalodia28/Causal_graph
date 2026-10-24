@@ -1,105 +1,92 @@
-{
-  "target": "kpi:REVIEW_SCORE",
-  "kpis": [
-    {
-      "id": "kpi:REVIEW_SCORE",
-      "name": "REVIEW_SCORE",
-      "sector": {
-        "id": "sector:reviews",
-        "name": "Reviews"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+[
+  {
+    "id": "kpi:REVIEW_SCORE",
+    "name": "REVIEW_SCORE",
+    "sector": {
+      "id": "sector:reviews",
+      "name": "Reviews"
     },
-    {
-      "id": "kpi:IS_NEGATIVE_REVIEW",
-      "name": "IS_NEGATIVE_REVIEW",
-      "sector": {
-        "id": "sector:reviews",
-        "name": "Reviews"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:IS_NEGATIVE_REVIEW",
+    "name": "IS_NEGATIVE_REVIEW",
+    "sector": {
+      "id": "sector:reviews",
+      "name": "Reviews"
     },
-    {
-      "id": "kpi:DELIVERY_DAYS",
-      "name": "DELIVERY_DAYS",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:DELIVERY_DAYS",
+    "name": "DELIVERY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:DELAY_DAYS",
-      "name": "DELAY_DAYS",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:DELAY_DAYS",
+    "name": "DELAY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:IS_ON_TIME",
-      "name": "IS_ON_TIME",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:IS_ON_TIME",
+    "name": "IS_ON_TIME",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:HAS_COMMENT",
-      "name": "HAS_COMMENT",
-      "sector": {
-        "id": "sector:reviews",
-        "name": "Reviews"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:HAS_COMMENT",
+    "name": "HAS_COMMENT",
+    "sector": {
+      "id": "sector:reviews",
+      "name": "Reviews"
     },
-    {
-      "id": "kpi:SHIP_LIMIT_MET",
-      "name": "SHIP_LIMIT_MET",
-      "sector": {
-        "id": "sector:seller",
-        "name": "Seller"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:SHIP_LIMIT_MET",
+    "name": "SHIP_LIMIT_MET",
+    "sector": {
+      "id": "sector:seller",
+      "name": "Seller"
     },
-    {
-      "id": "kpi:PROCESSING_DAYS",
-      "name": "PROCESSING_DAYS",
-      "sector": {
-        "id": "sector:seller",
-        "name": "Seller"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:PROCESSING_DAYS",
+    "name": "PROCESSING_DAYS",
+    "sector": {
+      "id": "sector:seller",
+      "name": "Seller"
     },
-    {
-      "id": "kpi:PHOTOS_QTY",
-      "name": "PHOTOS_QTY",
-      "sector": {
-        "id": "sector:product",
-        "name": "Product"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:PHOTOS_QTY",
+    "name": "PHOTOS_QTY",
+    "sector": {
+      "id": "sector:product",
+      "name": "Product"
     },
-    {
-      "id": "kpi:PRODUCT_WEIGHT_G",
-      "name": "PRODUCT_WEIGHT_G",
-      "sector": {
-        "id": "sector:product",
-        "name": "Product"
-      },
-      "relevance": 2,
-      "classification": "DIRECT"
-    }
-  ]
-}
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  }
+]

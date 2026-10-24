@@ -202,9 +202,6 @@
       ],
       "rec:goal": {
         "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:goal"
-      },
-      "rec:target": {
-        "@id": "kpi:REVIEW_SCORE"
       }
     },
     {
@@ -432,7 +429,7 @@
             }
           ],
           "rec:dimensionLabel": "customer feedback",
-          "rec:reason": "Directly identifies negative customer experiences (scores \u2264 2), which are strong indicators of poor perceived quality and service issues."
+          "rec:reason": "Directly identifies negative customer experiences (scores ≤ 2), which are strong indicators of poor perceived quality and service issues."
         },
         {
           "@type": "rec:RecommendationEvidence",
@@ -442,7 +439,7 @@
             }
           ],
           "rec:dimensionLabel": "customer support responsiveness",
-          "rec:reason": "Negative reviews (scores \u22642) serve as strong diagnostic evidence of customer dissatisfaction that may stem from poor support responsiveness, though they don't directly measure response times or effectiveness."
+          "rec:reason": "Negative reviews (scores ≤2) serve as strong diagnostic evidence of customer dissatisfaction that may stem from poor support responsiveness, though they don't directly measure response times or effectiveness."
         },
         {
           "@type": "rec:RecommendationEvidence",
@@ -452,7 +449,7 @@
             }
           ],
           "rec:dimensionLabel": "return and refund handling",
-          "rec:reason": "Negative reviews (scores \u2264 2) frequently result from poor return/refund experiences. This serves as strong diagnostic evidence of issues in the return and refund handling process."
+          "rec:reason": "Negative reviews (scores ≤ 2) frequently result from poor return/refund experiences. This serves as strong diagnostic evidence of issues in the return and refund handling process."
         },
         {
           "@type": "rec:RecommendationEvidence",

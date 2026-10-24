@@ -1,12 +1,44 @@
-output/
-artifacts/
+# Python cache
 __pycache__/
 *.py[cod]
+*$py.class
 
+# Virtual environments
 .venv/
 venv/
 env/
+ENV/
 
+# Generated artifacts / outputs
+artifacts/
+output/
+outputs/
+results/
+figures/
+*.png
+*.jpg
+*.jpeg
+
+# Data stores / generated files
+dstore/
+*.dstore
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# macOS
 .DS_Store
-.env
 
+# IDEs
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.temp

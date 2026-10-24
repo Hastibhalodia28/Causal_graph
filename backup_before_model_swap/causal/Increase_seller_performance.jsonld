@@ -1,0 +1,1716 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "kpi": "https://example.org/kpi/",
+    "data": "https://example.org/dataset/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "hasKPI": {
+      "@id": "kpi:hasKPI",
+      "@type": "@id"
+    },
+    "sector": {
+      "@id": "kpi:sector",
+      "@type": "@id"
+    },
+    "parentKPI": {
+      "@id": "kpi:parentKPI",
+      "@type": "@id"
+    },
+    "childKPI": {
+      "@id": "kpi:childKPI",
+      "@type": "@id"
+    },
+    "hasChild": "kpi:hasChild",
+    "derivedFrom": "kpi:derivedFrom",
+    "dataField": {
+      "@id": "kpi:dataField",
+      "@type": "@id"
+    },
+    "formula": "kpi:formula",
+    "expression": "kpi:expression",
+    "inputs": "kpi:inputs",
+    "explanation": "kpi:explanation",
+    "cr": "http://mlcommons.org/croissant/",
+    "sc": "https://schema.org/",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "column": "cr:column",
+    "fileObject": "cr:fileObject",
+    "field": "cr:field",
+    "recordSet": "cr:recordSet",
+    "@version": 1.1,
+    "@base": "https://example.org/dataset/",
+    "rec": "urn:kpi-recommendation:",
+    "contentUrl": "schema:contentUrl",
+    "encodingFormat": "schema:encodingFormat"
+  },
+  "@graph": [
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0",
+      "@type": "rec:Dimension",
+      "rec:position": 0,
+      "name": "order fulfillment",
+      "description": "Evaluates the seller's ability to process, pack, and ship orders correctly and on time, which directly impacts customer satisfaction and operational reliability."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1",
+      "@type": "rec:Dimension",
+      "rec:position": 1,
+      "name": "customer feedback",
+      "description": "Measures the quality of the seller's products and service as perceived by buyers through ratings, reviews, and direct complaints, indicating reputation and trustworthiness."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:2",
+      "@type": "rec:Dimension",
+      "rec:position": 2,
+      "name": "inventory management",
+      "description": "Assesses the seller's effectiveness in maintaining stock levels, avoiding stockouts or overstocking, which affects sales opportunities and capital efficiency."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3",
+      "@type": "rec:Dimension",
+      "rec:position": 3,
+      "name": "sales conversion",
+      "description": "Examines the seller's ability to turn buyer interest (e.g., product views, inquiries) into actual purchases, reflecting effectiveness in listing quality and customer engagement."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:4",
+      "@type": "rec:Dimension",
+      "rec:position": 4,
+      "name": "policy compliance",
+      "description": "Evaluates adherence to marketplace rules, return policies, and legal requirements, which is critical for maintaining selling privileges and avoiding penalties."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5",
+      "@type": "rec:Dimension",
+      "rec:position": 5,
+      "name": "customer support responsiveness",
+      "description": "Measures the speed and effectiveness in responding to pre-sale questions and post-sale issues, impacting buyer trust and conflict resolution."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6",
+      "@type": "rec:Dimension",
+      "rec:position": 6,
+      "name": "return and refund handling",
+      "description": "Assesses how efficiently and fairly the seller manages returns, refunds, and disputes, which influences customer loyalty and operational costs."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7",
+      "@type": "rec:Dimension",
+      "rec:position": 7,
+      "name": "product listing quality",
+      "description": "Evaluates the accuracy, completeness, and appeal of product descriptions, images, and specifications, which drives discoverability and purchase decisions."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8",
+      "@type": "rec:Dimension",
+      "rec:position": 8,
+      "name": "shipping and delivery cost efficiency",
+      "description": "Examines the competitiveness and rationality of shipping prices and delivery options offered, affecting buyer attraction and cost management."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9",
+      "@type": "rec:Dimension",
+      "rec:position": 9,
+      "name": "seller growth and scalability",
+      "description": "Assesses the ability to increase sales volume, expand product range, and enter new markets without degrading service quality, indicating long-term viability."
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:goal",
+      "@type": "rec:Goal",
+      "rec:objective": "improve",
+      "rec:target": "seller performance",
+      "rec:domain": "e-commerce, marketplace, or sales",
+      "rec:needsDecomposition": true
+    },
+    {
+      "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af",
+      "@type": "rec:KPIAnalysis",
+      "rec:query": "Increase seller performance",
+      "rec:summary": "The KPIs provide a comprehensive evaluation framework for seller performance across multiple dimensions. REVIEW_SCORE and IS_NEGATIVE_REVIEW directly measure customer feedback quality and identify negative experiences, while also serving as diagnostic indicators for customer support, return handling, and listing quality. SHIP_LIMIT_MET and PROCESSING_DAYS assess order fulfillment efficiency and policy compliance. PHOTOS_QTY and DESCRIPTION_LENGTH evaluate product listing completeness and visual appeal. FREIGHT_RATIO and PRODUCT_VOLUME_CM3 measure shipping cost efficiency and volumetric rationality. DELAY_DAYS and IS_ON_TIME track delivery performance timeliness. HAS_COMMENT captures detailed customer feedback through written comments. Together, these metrics enable monitoring of operational efficiency, service quality, cost management, and customer satisfaction aspects essential for seller performance improvement.",
+      "rec:hasDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:recommends": [
+        {
+          "@id": "kpi:REVIEW_SCORE"
+        },
+        {
+          "@id": "kpi:IS_NEGATIVE_REVIEW"
+        },
+        {
+          "@id": "kpi:SHIP_LIMIT_MET"
+        },
+        {
+          "@id": "kpi:PHOTOS_QTY"
+        },
+        {
+          "@id": "kpi:DESCRIPTION_LENGTH"
+        },
+        {
+          "@id": "kpi:PROCESSING_DAYS"
+        },
+        {
+          "@id": "kpi:FREIGHT_RATIO"
+        },
+        {
+          "@id": "kpi:IS_ON_TIME"
+        },
+        {
+          "@id": "kpi:DELAY_DAYS"
+        },
+        {
+          "@id": "kpi:HAS_COMMENT"
+        },
+        {
+          "@id": "kpi:PRODUCT_VOLUME_CM3"
+        }
+      ],
+      "rec:goal": {
+        "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:goal"
+      },
+      "rec:target": {
+        "@id": "kpi:REVIEW_SCORE"
+      }
+    },
+    {
+      "@id": "sector:reviews",
+      "@type": "kpi:Sector",
+      "name": "Reviews"
+    },
+    {
+      "@id": "kpi:REVIEW_SCORE",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "REVIEW_SCORE",
+      "description": "Review Score. Collected from Olist source columns. Computed as review_score (1-5), by order_id (mean if multiple review rows per order). Unit: Score.",
+      "rec:position": 0,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer feedback",
+          "customer support responsiveness",
+          "return and refund handling",
+          "product listing quality",
+          "seller growth and scalability"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+            }
+          ],
+          "rec:dimensionLabel": "customer feedback",
+          "rec:reason": "Directly measures customer perception of product and service quality through explicit 1-5 star ratings, which is the core of customer feedback."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5"
+            }
+          ],
+          "rec:dimensionLabel": "customer support responsiveness",
+          "rec:reason": "Review scores can provide strong diagnostic evidence about customer support responsiveness, as poor support experiences often result in lower review scores, though they are not a direct measure of response speed or effectiveness."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "return and refund handling",
+          "rec:reason": "While not a direct measure of return/refund handling, review scores are strongly influenced by how well sellers handle post-purchase issues like returns and refunds. Low scores often indicate poor resolution of customer problems."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+            }
+          ],
+          "rec:dimensionLabel": "product listing quality",
+          "rec:reason": "Strong diagnostic evidence - poor listing quality often leads to negative reviews due to mismatched expectations."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+            }
+          ],
+          "rec:dimensionLabel": "seller growth and scalability",
+          "rec:reason": "Directly measures service quality, which is essential for maintaining performance during growth and expansion. Poor reviews indicate degradation that would hinder scalability."
+        }
+      ],
+      "rec:evidenceName": "REVIEW_SCORE",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "review_score (1-5), by order_id (mean if multiple review rows per order)"
+      },
+      "parentKPI": [],
+      "childKPI": [
+        {
+          "@id": "kpi:IS_NEGATIVE_REVIEW"
+        }
+      ],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_score"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_score"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_reviews_dataset.csv",
+      "contentUrl": "olist_order_reviews_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_reviews_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_score"
+        },
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+        },
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_score",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_score",
+      "description": "Note ranging from 1 to 5 given by the customer on a satisfaction survey. Target of the causal model.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_score"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:IS_NEGATIVE_REVIEW",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_NEGATIVE_REVIEW",
+      "description": "Is Negative Review. Derived from parent KPI row(s). Computed as 1 if REVIEW_SCORE <= 2 else 0. Unit: 0/1 flag.",
+      "rec:position": 1,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer feedback",
+          "customer support responsiveness",
+          "return and refund handling",
+          "product listing quality",
+          "seller growth and scalability"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+            }
+          ],
+          "rec:dimensionLabel": "customer feedback",
+          "rec:reason": "Directly identifies negative customer experiences (scores \u2264 2), which are strong indicators of poor perceived quality and service issues."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:5"
+            }
+          ],
+          "rec:dimensionLabel": "customer support responsiveness",
+          "rec:reason": "Negative reviews (scores \u22642) serve as strong diagnostic evidence of customer dissatisfaction that may stem from poor support responsiveness, though they don't directly measure response times or effectiveness."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "return and refund handling",
+          "rec:reason": "Negative reviews (scores \u2264 2) frequently result from poor return/refund experiences. This serves as strong diagnostic evidence of issues in the return and refund handling process."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+            }
+          ],
+          "rec:dimensionLabel": "product listing quality",
+          "rec:reason": "Strong diagnostic evidence - negative reviews can indicate problems with listing accuracy and completeness."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+            }
+          ],
+          "rec:dimensionLabel": "seller growth and scalability",
+          "rec:reason": "Flags significant service quality issues that could damage seller reputation and hinder market expansion efforts during growth phases."
+        }
+      ],
+      "rec:evidenceName": "IS_NEGATIVE_REVIEW",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "1 if REVIEW_SCORE <= 2 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:REVIEW_SCORE"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:REVIEW_SCORE"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": []
+    },
+    {
+      "@id": "sector:seller",
+      "@type": "kpi:Sector",
+      "name": "Seller"
+    },
+    {
+      "@id": "kpi:SHIP_LIMIT_MET",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "SHIP_LIMIT_MET",
+      "description": "Ship Limit Met. Collected from Olist source columns. Computed as 1 if order_delivered_carrier_date <= min(shipping_limit_date by order_id) else 0. Unit: 0/1 flag.",
+      "rec:position": 2,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "order fulfillment",
+          "policy compliance",
+          "seller growth and scalability"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+            }
+          ],
+          "rec:dimensionLabel": "order fulfillment",
+          "rec:reason": "Directly measures whether the seller shipped orders by the required deadline, which is a core aspect of order fulfillment performance."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:4"
+            }
+          ],
+          "rec:dimensionLabel": "policy compliance",
+          "rec:reason": "Directly measures compliance with shipping time limits set by the marketplace, which is a core policy requirement for sellers."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+            }
+          ],
+          "rec:dimensionLabel": "seller growth and scalability",
+          "rec:reason": "Meets shipping performance requirements, indicating operational efficiency needed to handle increased sales volume without service degradation."
+        }
+      ],
+      "rec:evidenceName": "SHIP_LIMIT_MET",
+      "sector": {
+        "@id": "sector:seller"
+      },
+      "formula": {
+        "expression": "1 if order_delivered_carrier_date <= min(shipping_limit_date by order_id) else 0"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_orders_dataset.csv",
+      "contentUrl": "olist_orders_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_orders_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_orders_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_approved_at"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_delivered_carrier_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_delivered_carrier_date",
+      "description": "Shows the order posting timestamp. When it was handled to the logistic partner.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_delivered_carrier_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_items_dataset.csv",
+      "contentUrl": "olist_order_items_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_items_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_items_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/shipping_limit_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "shipping_limit_date",
+      "description": "Shows the seller shipping limit date for handling the order over to the logistic partner.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "shipping_limit_date"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:product",
+      "@type": "kpi:Sector",
+      "name": "Product"
+    },
+    {
+      "@id": "kpi:PHOTOS_QTY",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "PHOTOS_QTY",
+      "description": "Photos Qty. Collected from Olist source columns. Computed as mean(product_photos_qty) over the products in the order (join order_items.product_id -> products.product_id), by order_id. Unit: Count.",
+      "rec:position": 3,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "sales conversion",
+          "product listing quality"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "sales conversion",
+          "rec:reason": "Product photo quantity is a strong diagnostic indicator for sales conversion as high-quality, numerous photos can significantly influence buyer purchasing decisions by providing better product visualization and reducing uncertainty."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+            }
+          ],
+          "rec:dimensionLabel": "product listing quality",
+          "rec:reason": "Directly measures the visual appeal and completeness of product listings, a core aspect of listing quality."
+        }
+      ],
+      "rec:evidenceName": "PHOTOS_QTY",
+      "sector": {
+        "@id": "sector:product"
+      },
+      "formula": {
+        "expression": "mean(product_photos_qty) over the products in the order (join order_items.product_id -> products.product_id), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_products_dataset.csv/product_photos_qty"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/product_id"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_products_dataset.csv/product_photos_qty"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_products_dataset.csv",
+      "contentUrl": "olist_products_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_products_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_products_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_products_dataset.csv/product_photos_qty"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_description_lenght"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_length_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_height_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_width_cm"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_photos_qty",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_photos_qty",
+      "description": "number of product published photos",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_photos_qty"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/product_id",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_id",
+      "description": "product unique identifier; join key to olist_products_dataset.csv",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_id"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:DESCRIPTION_LENGTH",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DESCRIPTION_LENGTH",
+      "description": "Description Length. Collected from Olist source columns. Computed as mean(product_description_lenght) over the products in the order, by order_id. Unit: Count.",
+      "rec:position": 4,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "sales conversion",
+          "product listing quality"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "sales conversion",
+          "rec:reason": "Product description length serves as strong diagnostic evidence for conversion effectiveness, as detailed descriptions help address buyer questions, build trust, and provide necessary information to complete a purchase."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:7"
+            }
+          ],
+          "rec:dimensionLabel": "product listing quality",
+          "rec:reason": "Directly measures the completeness and detail of product descriptions, a key component of listing quality."
+        }
+      ],
+      "rec:evidenceName": "DESCRIPTION_LENGTH",
+      "sector": {
+        "@id": "sector:product"
+      },
+      "formula": {
+        "expression": "mean(product_description_lenght) over the products in the order, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_products_dataset.csv/product_description_lenght"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/product_id"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_products_dataset.csv/product_description_lenght"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_description_lenght",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_description_lenght",
+      "description": "number of characters extracted from the product description.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_description_lenght"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:PROCESSING_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "PROCESSING_DAYS",
+      "description": "Processing Days. Collected from Olist source columns. Computed as (order_delivered_carrier_date - order_approved_at) / 86400, by order_id. Unit: Days.",
+      "rec:position": 5,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "order fulfillment"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+            }
+          ],
+          "rec:dimensionLabel": "order fulfillment",
+          "rec:reason": "Directly measures the seller's processing and packing efficiency (time from order approval to carrier handoff), a key component of order fulfillment."
+        }
+      ],
+      "rec:evidenceName": "PROCESSING_DAYS",
+      "sector": {
+        "@id": "sector:seller"
+      },
+      "formula": {
+        "expression": "(order_delivered_carrier_date - order_approved_at) / 86400, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_approved_at"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_approved_at"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_approved_at",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_approved_at",
+      "description": "Shows the payment approval timestamp.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_approved_at"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:payments",
+      "@type": "kpi:Sector",
+      "name": "Payments"
+    },
+    {
+      "@id": "kpi:FREIGHT_RATIO",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "FREIGHT_RATIO",
+      "description": "Freight Ratio. Collected from Olist source columns. Computed as sum(freight_value) / sum(price), by order_id. Unit: Ratio.",
+      "rec:position": 6,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping and delivery cost efficiency"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8"
+            }
+          ],
+          "rec:dimensionLabel": "shipping and delivery cost efficiency",
+          "rec:reason": "Directly measures the competitiveness and rationality of shipping prices by showing the proportion of total order value that is allocated to freight costs. A lower ratio indicates more cost-efficient shipping, which is central to the evaluation dimension."
+        }
+      ],
+      "rec:evidenceName": "FREIGHT_RATIO",
+      "sector": {
+        "@id": "sector:payments"
+      },
+      "formula": {
+        "expression": "sum(freight_value) / sum(price), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_items_dataset.csv/freight_value"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/price"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/freight_value",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "freight_value",
+      "description": "item freight value item (if an order has more than one item the freight value is splitted between items)",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "freight_value"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/price",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "price",
+      "description": "item price",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "price"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:delivery",
+      "@type": "kpi:Sector",
+      "name": "Delivery"
+    },
+    {
+      "@id": "kpi:IS_ON_TIME",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_ON_TIME",
+      "description": "Is On Time. Derived from parent KPI row(s). Computed as 1 if DELAY_DAYS <= 0 else 0. Unit: 0/1 flag.",
+      "rec:position": 7,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "order fulfillment",
+          "seller growth and scalability"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+            }
+          ],
+          "rec:dimensionLabel": "order fulfillment",
+          "rec:reason": "Strong diagnostic evidence for fulfillment reliability as it indicates whether deliveries met estimated timelines, though influenced by carrier performance."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+            }
+          ],
+          "rec:dimensionLabel": "seller growth and scalability",
+          "rec:reason": "On-time delivery is critical for customer satisfaction and maintaining service quality when scaling operations to new markets or higher volumes."
+        }
+      ],
+      "rec:evidenceName": "IS_ON_TIME",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "1 if DELAY_DAYS <= 0 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:DELAY_DAYS"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:DELAY_DAYS"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": []
+    },
+    {
+      "@id": "kpi:DELAY_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DELAY_DAYS",
+      "description": "Delay Days. Collected from Olist source columns. Computed as calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id. Unit: Days.",
+      "rec:position": 8,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "order fulfillment",
+          "seller growth and scalability"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:0"
+            }
+          ],
+          "rec:dimensionLabel": "order fulfillment",
+          "rec:reason": "Provides strong diagnostic evidence about delivery timeliness relative to estimates, though influenced by both seller and carrier performance."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:9"
+            }
+          ],
+          "rec:dimensionLabel": "seller growth and scalability",
+          "rec:reason": "Quantifies delivery performance delays that directly impact service quality and customer satisfaction, which are essential for sustainable growth."
+        }
+      ],
+      "rec:evidenceName": "DELAY_DAYS",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [
+        {
+          "@id": "kpi:IS_ON_TIME"
+        }
+      ],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            },
+            {
+              "source": "graph",
+              "relation": "derivedFrom",
+              "direction": "incoming",
+              "discovered_from": "kpi:IS_ON_TIME"
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_delivered_customer_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_delivered_customer_date",
+      "description": "Shows the actual order delivery date to the customer.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_delivered_customer_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_estimated_delivery_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_estimated_delivery_date",
+      "description": "Shows the estimated delivery date that was informed to customer at the purchase moment.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_estimated_delivery_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:HAS_COMMENT",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "HAS_COMMENT",
+      "description": "Has Comment. Collected from Olist source columns. Computed as 1 if review_comment_title or review_comment_message is non-empty else 0, by order_id. Unit: 0/1 flag.",
+      "rec:position": 9,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer feedback"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:1"
+            }
+          ],
+          "rec:dimensionLabel": "customer feedback",
+          "rec:reason": "Strong diagnostic evidence as written comments often contain detailed feedback about product quality and service experience, though not all comments are negative."
+        }
+      ],
+      "rec:evidenceName": "HAS_COMMENT",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "1 if review_comment_title or review_comment_message is non-empty else 0, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+          },
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+        },
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_comment_title",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_comment_title",
+      "description": "Comment title from the review left by the customer, in Portuguese.",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_comment_title"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_comment_message",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_comment_message",
+      "description": "Comment message from the review left by the customer, in Portuguese.",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_comment_message"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:PRODUCT_VOLUME_CM3",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "PRODUCT_VOLUME_CM3",
+      "description": "Product Volume Cm3. Collected from Olist source columns. Computed as mean(product_length_cm * product_height_cm * product_width_cm) over the products in the order, by order_id. Unit: Cubic centimetres.",
+      "rec:position": 10,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "shipping and delivery cost efficiency"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:803d0cdaf61708ddfb5010eb8ebf6bfdfba92a39a04d5048bd51449d37b7d2af:dimension:8"
+            }
+          ],
+          "rec:dimensionLabel": "shipping and delivery cost efficiency",
+          "rec:reason": "Provides strong diagnostic evidence as product volume is a key factor in determining shipping costs. Understanding volumetric efficiency helps diagnose whether freight costs are rational and competitive for the products being shipped."
+        }
+      ],
+      "rec:evidenceName": "PRODUCT_VOLUME_CM3",
+      "sector": {
+        "@id": "sector:product"
+      },
+      "formula": {
+        "expression": "mean(product_length_cm * product_height_cm * product_width_cm) over the products in the order, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_products_dataset.csv/product_length_cm"
+          },
+          {
+            "@id": "olist_products_dataset.csv/product_height_cm"
+          },
+          {
+            "@id": "olist_products_dataset.csv/product_width_cm"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/product_id"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_products_dataset.csv/product_length_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_height_cm"
+        },
+        {
+          "@id": "olist_products_dataset.csv/product_width_cm"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/product_id"
+        }
+      ]
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_length_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_length_cm",
+      "description": "product length measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_length_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_height_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_height_cm",
+      "description": "product height measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_height_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_products_dataset.csv/product_width_cm",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "product_width_cm",
+      "description": "product width measured in centimeters.",
+      "dataType": [
+        "sc:Integer"
+      ],
+      "source": {
+        "extract": {
+          "column": "product_width_cm"
+        },
+        "fileObject": {
+          "@id": "olist_products_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_products_dataset.csv"
+      }
+    }
+  ]
+}

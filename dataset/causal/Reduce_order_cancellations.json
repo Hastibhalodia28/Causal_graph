@@ -1,105 +1,92 @@
-{
-  "target": "kpi:IS_CANCELED",
-  "kpis": [
-    {
-      "id": "kpi:DELIVERY_DAYS",
-      "name": "DELIVERY_DAYS",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+[
+  {
+    "id": "kpi:DELIVERY_DAYS",
+    "name": "DELIVERY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:DELAY_DAYS",
-      "name": "DELAY_DAYS",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:DELAY_DAYS",
+    "name": "DELAY_DAYS",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:APPROVAL_HOURS",
-      "name": "APPROVAL_HOURS",
-      "sector": {
-        "id": "sector:seller",
-        "name": "Seller"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:APPROVAL_HOURS",
+    "name": "APPROVAL_HOURS",
+    "sector": {
+      "id": "sector:seller",
+      "name": "Seller"
     },
-    {
-      "id": "kpi:PROCESSING_DAYS",
-      "name": "PROCESSING_DAYS",
-      "sector": {
-        "id": "sector:seller",
-        "name": "Seller"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:PROCESSING_DAYS",
+    "name": "PROCESSING_DAYS",
+    "sector": {
+      "id": "sector:seller",
+      "name": "Seller"
     },
-    {
-      "id": "kpi:HAS_COMMENT",
-      "name": "HAS_COMMENT",
-      "sector": {
-        "id": "sector:reviews",
-        "name": "Reviews"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:HAS_COMMENT",
+    "name": "HAS_COMMENT",
+    "sector": {
+      "id": "sector:reviews",
+      "name": "Reviews"
     },
-    {
-      "id": "kpi:FREIGHT_RATIO",
-      "name": "FREIGHT_RATIO",
-      "sector": {
-        "id": "sector:payments",
-        "name": "Payments"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:FREIGHT_RATIO",
+    "name": "FREIGHT_RATIO",
+    "sector": {
+      "id": "sector:payments",
+      "name": "Payments"
     },
-    {
-      "id": "kpi:IS_ON_TIME",
-      "name": "IS_ON_TIME",
-      "sector": {
-        "id": "sector:delivery",
-        "name": "Delivery"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 3,
+    "classification": "DIRECT"
+  },
+  {
+    "id": "kpi:IS_ON_TIME",
+    "name": "IS_ON_TIME",
+    "sector": {
+      "id": "sector:delivery",
+      "name": "Delivery"
     },
-    {
-      "id": "kpi:SHIP_LIMIT_MET",
-      "name": "SHIP_LIMIT_MET",
-      "sector": {
-        "id": "sector:seller",
-        "name": "Seller"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:SHIP_LIMIT_MET",
+    "name": "SHIP_LIMIT_MET",
+    "sector": {
+      "id": "sector:seller",
+      "name": "Seller"
     },
-    {
-      "id": "kpi:IS_NEGATIVE_REVIEW",
-      "name": "IS_NEGATIVE_REVIEW",
-      "sector": {
-        "id": "sector:reviews",
-        "name": "Reviews"
-      },
-      "relevance": 2,
-      "classification": "DIAGNOSTIC"
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  },
+  {
+    "id": "kpi:IS_NEGATIVE_REVIEW",
+    "name": "IS_NEGATIVE_REVIEW",
+    "sector": {
+      "id": "sector:reviews",
+      "name": "Reviews"
     },
-    {
-      "id": "kpi:IS_CANCELED",
-      "name": "IS_CANCELED",
-      "sector": {
-        "id": "sector:cancellations",
-        "name": "Cancellations"
-      },
-      "relevance": 3,
-      "classification": "DIRECT"
-    }
-  ]
-}
+    "relevance": 2,
+    "classification": "DIAGNOSTIC"
+  }
+]

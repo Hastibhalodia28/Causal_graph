@@ -1,0 +1,1220 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "kpi": "https://example.org/kpi/",
+    "data": "https://example.org/dataset/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "hasKPI": {
+      "@id": "kpi:hasKPI",
+      "@type": "@id"
+    },
+    "sector": {
+      "@id": "kpi:sector",
+      "@type": "@id"
+    },
+    "parentKPI": {
+      "@id": "kpi:parentKPI",
+      "@type": "@id"
+    },
+    "childKPI": {
+      "@id": "kpi:childKPI",
+      "@type": "@id"
+    },
+    "hasChild": "kpi:hasChild",
+    "derivedFrom": "kpi:derivedFrom",
+    "dataField": {
+      "@id": "kpi:dataField",
+      "@type": "@id"
+    },
+    "formula": "kpi:formula",
+    "expression": "kpi:expression",
+    "inputs": "kpi:inputs",
+    "explanation": "kpi:explanation",
+    "cr": "http://mlcommons.org/croissant/",
+    "sc": "https://schema.org/",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "column": "cr:column",
+    "fileObject": "cr:fileObject",
+    "field": "cr:field",
+    "recordSet": "cr:recordSet",
+    "@version": 1.1,
+    "@base": "https://example.org/dataset/",
+    "rec": "urn:kpi-recommendation:",
+    "contentUrl": "schema:contentUrl",
+    "encodingFormat": "schema:encodingFormat"
+  },
+  "@graph": [
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:0",
+      "@type": "rec:Dimension",
+      "rec:position": 0,
+      "name": "customer profile",
+      "description": "Understanding customer segments (e.g., new vs. returning, demographics) can reveal patterns in cancellation behavior."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:1",
+      "@type": "rec:Dimension",
+      "rec:position": 1,
+      "name": "order characteristics",
+      "description": "Attributes like product category, basket size, and number of items may influence cancellation likelihood."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2",
+      "@type": "rec:Dimension",
+      "rec:position": 2,
+      "name": "fulfillment timeline",
+      "description": "The time between order placement, confirmation, and shipping can be a significant driver of cancellations."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3",
+      "@type": "rec:Dimension",
+      "rec:position": 3,
+      "name": "customer service interactions",
+      "description": "Inquiries, complaints, or support requests related to an order often precede a cancellation."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:4",
+      "@type": "rec:Dimension",
+      "rec:position": 4,
+      "name": "payment method",
+      "description": "The chosen payment type (e.g., credit card, PayPal) can affect transaction success and subsequent cancellations."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:5",
+      "@type": "rec:Dimension",
+      "rec:position": 5,
+      "name": "promotional context",
+      "description": "Orders placed during sales or using discount codes may have different cancellation rates."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6",
+      "@type": "rec:Dimension",
+      "rec:position": 6,
+      "name": "geographic location",
+      "description": "Delivery timelines, shipping costs, and product availability vary by region, impacting cancellation decisions."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:7",
+      "@type": "rec:Dimension",
+      "rec:position": 7,
+      "name": "device and channel",
+      "description": "The platform used to place the order (e.g., mobile app, desktop website) may correlate with cancellation rates."
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:goal",
+      "@type": "rec:Goal",
+      "rec:objective": "improve",
+      "rec:target": "order cancellations",
+      "rec:domain": "e-commerce/order fulfillment",
+      "rec:needsDecomposition": true
+    },
+    {
+      "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066",
+      "@type": "rec:KPIAnalysis",
+      "rec:query": "Reduce order cancellations",
+      "rec:summary": "The KPIs evaluate order cancellation reduction by measuring fulfillment timeline performance (DELIVERY_DAYS, DELAY_DAYS, APPROVAL_HOURS, PROCESSING_DAYS, SHIP_LIMIT_MET, IS_ON_TIME), geographic location variations (DELIVERY_DAYS, DELAY_DAYS, FREIGHT_RATIO, IS_ON_TIME), and customer service interactions (HAS_COMMENT, IS_NEGATIVE_REVIEW). They provide direct measurement and diagnostic evidence across these dimensions to identify potential factors associated with cancellation decisions.",
+      "rec:hasDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:0"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:1"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:4"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:5"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:7"
+        }
+      ],
+      "rec:recommends": [
+        {
+          "@id": "kpi:IS_CANCELED"
+        },
+        {
+          "@id": "kpi:DELIVERY_DAYS"
+        },
+        {
+          "@id": "kpi:DELAY_DAYS"
+        },
+        {
+          "@id": "kpi:APPROVAL_HOURS"
+        },
+        {
+          "@id": "kpi:PROCESSING_DAYS"
+        },
+        {
+          "@id": "kpi:HAS_COMMENT"
+        },
+        {
+          "@id": "kpi:FREIGHT_RATIO"
+        },
+        {
+          "@id": "kpi:IS_ON_TIME"
+        },
+        {
+          "@id": "kpi:SHIP_LIMIT_MET"
+        },
+        {
+          "@id": "kpi:IS_NEGATIVE_REVIEW"
+        }
+      ],
+      "rec:goal": {
+        "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:goal"
+      },
+      "rec:target": {
+        "@id": "kpi:IS_CANCELED"
+      }
+    },
+    {
+      "@id": "sector:delivery",
+      "@type": "kpi:Sector",
+      "name": "Delivery"
+    },
+    {
+      "@id": "kpi:DELIVERY_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DELIVERY_DAYS",
+      "description": "Delivery Days. Collected from Olist source columns. Computed as (order_delivered_customer_date - order_purchase_timestamp) / 86400, by order_id. Unit: Days.",
+      "rec:position": 0,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline",
+          "geographic location"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "Directly measures the total time from order placement to customer delivery, encompassing the entire fulfillment timeline. Long delivery times are a primary reason for order cancellations."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "geographic location",
+          "rec:reason": "Directly measures delivery timelines which vary by geographic location and impact cancellation decisions"
+        }
+      ],
+      "rec:evidenceName": "DELIVERY_DAYS",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "(order_delivered_customer_date - order_purchase_timestamp) / 86400, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_orders_dataset.csv",
+      "contentUrl": "olist_orders_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_orders_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_orders_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_approved_at"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_delivered_customer_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_delivered_customer_date",
+      "description": "Shows the actual order delivery date to the customer.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_delivered_customer_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_purchase_timestamp",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_purchase_timestamp",
+      "description": "Shows the purchase timestamp.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_purchase_timestamp"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:DELAY_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "DELAY_DAYS",
+      "description": "Delay Days. Collected from Olist source columns. Computed as calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id. Unit: Days.",
+      "rec:position": 1,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline",
+          "geographic location"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "Meets estimated delivery dates is a key customer expectation. Significant delays (positive values) are strong diagnostic evidence for why an order might be cancelled, though it measures the outcome rather than the timeline itself."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "geographic location",
+          "rec:reason": "Directly measures delivery performance against estimates, which varies by region and influences cancellation behavior"
+        }
+      ],
+      "rec:evidenceName": "DELAY_DAYS",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "calendar_days(order_delivered_customer_date) - calendar_days(order_estimated_delivery_date), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [
+        {
+          "@id": "kpi:IS_ON_TIME"
+        }
+      ],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_customer_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_estimated_delivery_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_estimated_delivery_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_estimated_delivery_date",
+      "description": "Shows the estimated delivery date that was informed to customer at the purchase moment.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_estimated_delivery_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:seller",
+      "@type": "kpi:Sector",
+      "name": "Seller"
+    },
+    {
+      "@id": "kpi:APPROVAL_HOURS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "APPROVAL_HOURS",
+      "description": "Approval Hours. Collected from Olist source columns. Computed as (order_approved_at - order_purchase_timestamp) / 3600, by order_id. Unit: Hours.",
+      "rec:position": 2,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "Directly measures the time between order placement (purchase) and confirmation (approval), which is a key part of the fulfillment timeline and a potential driver of cancellations if delayed."
+        }
+      ],
+      "rec:evidenceName": "APPROVAL_HOURS",
+      "sector": {
+        "@id": "sector:seller"
+      },
+      "formula": {
+        "expression": "(order_approved_at - order_purchase_timestamp) / 3600, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_approved_at"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_approved_at"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_purchase_timestamp"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_approved_at",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_approved_at",
+      "description": "Shows the payment approval timestamp.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_approved_at"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:PROCESSING_DAYS",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "PROCESSING_DAYS",
+      "description": "Processing Days. Collected from Olist source columns. Computed as (order_delivered_carrier_date - order_approved_at) / 86400, by order_id. Unit: Days.",
+      "rec:position": 3,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "Directly measures the time between order confirmation (approval) and handoff to carrier (shipping), which is a critical phase in the fulfillment timeline that can impact customer patience and cancellation decisions."
+        }
+      ],
+      "rec:evidenceName": "PROCESSING_DAYS",
+      "sector": {
+        "@id": "sector:seller"
+      },
+      "formula": {
+        "expression": "(order_delivered_carrier_date - order_approved_at) / 86400, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+          },
+          {
+            "@id": "olist_orders_dataset.csv/order_approved_at"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        },
+        {
+          "@id": "olist_orders_dataset.csv/order_approved_at"
+        }
+      ]
+    },
+    {
+      "@id": "olist_orders_dataset.csv/order_delivered_carrier_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "order_delivered_carrier_date",
+      "description": "Shows the order posting timestamp. When it was handled to the logistic partner.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "order_delivered_carrier_date"
+        },
+        "fileObject": {
+          "@id": "olist_orders_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_orders_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:reviews",
+      "@type": "kpi:Sector",
+      "name": "Reviews"
+    },
+    {
+      "@id": "kpi:HAS_COMMENT",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "HAS_COMMENT",
+      "description": "Has Comment. Collected from Olist source columns. Computed as 1 if review_comment_title or review_comment_message is non-empty else 0, by order_id. Unit: 0/1 flag.",
+      "rec:position": 4,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer service interactions"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "customer service interactions",
+          "rec:reason": "Directly measures customer service interactions as it flags orders where customers have left comments (inquiry, complaint, or support request), which is the precise definition of the evaluation dimension."
+        }
+      ],
+      "rec:evidenceName": "HAS_COMMENT",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "1 if review_comment_title or review_comment_message is non-empty else 0, by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+          },
+          {
+            "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+        },
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_reviews_dataset.csv",
+      "contentUrl": "olist_order_reviews_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_reviews_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_title"
+        },
+        {
+          "@id": "olist_order_reviews_dataset.csv/review_comment_message"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_comment_title",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_comment_title",
+      "description": "Comment title from the review left by the customer, in Portuguese.",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_comment_title"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_reviews_dataset.csv/review_comment_message",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "review_comment_message",
+      "description": "Comment message from the review left by the customer, in Portuguese.",
+      "dataType": [
+        "sc:Text"
+      ],
+      "source": {
+        "extract": {
+          "column": "review_comment_message"
+        },
+        "fileObject": {
+          "@id": "olist_order_reviews_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_reviews_dataset.csv"
+      }
+    },
+    {
+      "@id": "sector:payments",
+      "@type": "kpi:Sector",
+      "name": "Payments"
+    },
+    {
+      "@id": "kpi:FREIGHT_RATIO",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "FREIGHT_RATIO",
+      "description": "Freight Ratio. Collected from Olist source columns. Computed as sum(freight_value) / sum(price), by order_id. Unit: Ratio.",
+      "rec:position": 5,
+      "rec:relevance": 3,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "geographic location"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "geographic location",
+          "rec:reason": "Directly measures shipping costs as a ratio of order value, which varies significantly by geographic location and affects cancellation decisions"
+        }
+      ],
+      "rec:evidenceName": "FREIGHT_RATIO",
+      "sector": {
+        "@id": "sector:payments"
+      },
+      "formula": {
+        "expression": "sum(freight_value) / sum(price), by order_id"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_order_items_dataset.csv/freight_value"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/price"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIRECT",
+      "rec:provenance": [
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv_fileobject",
+      "@type": "cr:FileObject",
+      "name": "olist_order_items_dataset.csv",
+      "contentUrl": "olist_order_items_dataset.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@id": "olist_order_items_dataset.csv",
+      "@type": "cr:RecordSet",
+      "name": "olist_order_items_dataset.csv",
+      "field": [
+        {
+          "@id": "olist_order_items_dataset.csv/freight_value"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/price"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/freight_value",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "freight_value",
+      "description": "item freight value item (if an order has more than one item the freight value is splitted between items)",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "freight_value"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/price",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "price",
+      "description": "item price",
+      "dataType": [
+        "sc:Float"
+      ],
+      "source": {
+        "extract": {
+          "column": "price"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:IS_ON_TIME",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_ON_TIME",
+      "description": "Is On Time. Derived from parent KPI row(s). Computed as 1 if DELAY_DAYS <= 0 else 0. Unit: 0/1 flag.",
+      "rec:position": 6,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        },
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline",
+          "geographic location"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "As a derivative of DELAY_DAYS, it provides strong diagnostic evidence about whether the fulfillment timeline met customer expectations, which is a major factor in cancellation decisions."
+        },
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:6"
+            }
+          ],
+          "rec:dimensionLabel": "geographic location",
+          "rec:reason": "Strong diagnostic evidence - derived from DELAY_DAYS, provides binary indicator of on-time delivery performance by region"
+        }
+      ],
+      "rec:evidenceName": "IS_ON_TIME",
+      "sector": {
+        "@id": "sector:delivery"
+      },
+      "formula": {
+        "expression": "1 if DELAY_DAYS <= 0 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:DELAY_DAYS"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:DELAY_DAYS"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            },
+            {
+              "source": "graph",
+              "relation": "derivedFrom",
+              "direction": "outgoing",
+              "discovered_from": "kpi:DELAY_DAYS"
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": []
+    },
+    {
+      "@id": "kpi:SHIP_LIMIT_MET",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "SHIP_LIMIT_MET",
+      "description": "Ship Limit Met. Collected from Olist source columns. Computed as 1 if order_delivered_carrier_date <= min(shipping_limit_date by order_id) else 0. Unit: 0/1 flag.",
+      "rec:position": 7,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "fulfillment timeline"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:2"
+            }
+          ],
+          "rec:dimensionLabel": "fulfillment timeline",
+          "rec:reason": "Indicates whether the seller met their internal shipping deadline. Failure to do so is strong diagnostic evidence for delays later in the fulfillment timeline that could lead to cancellations."
+        }
+      ],
+      "rec:evidenceName": "SHIP_LIMIT_MET",
+      "sector": {
+        "@id": "sector:seller"
+      },
+      "formula": {
+        "expression": "1 if order_delivered_carrier_date <= min(shipping_limit_date by order_id) else 0"
+      },
+      "parentKPI": [],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [],
+        "dataField": [
+          {
+            "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+          },
+          {
+            "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+          }
+        ]
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": [
+        {
+          "@id": "olist_orders_dataset.csv/order_delivered_carrier_date"
+        },
+        {
+          "@id": "olist_order_items_dataset.csv/shipping_limit_date"
+        }
+      ]
+    },
+    {
+      "@id": "olist_order_items_dataset.csv/shipping_limit_date",
+      "rec:resolved": true,
+      "@type": "cr:Field",
+      "name": "shipping_limit_date",
+      "description": "Shows the seller shipping limit date for handling the order over to the logistic partner.",
+      "dataType": [
+        "sc:Date"
+      ],
+      "source": {
+        "extract": {
+          "column": "shipping_limit_date"
+        },
+        "fileObject": {
+          "@id": "olist_order_items_dataset.csv_fileobject"
+        }
+      },
+      "schema:isPartOf": {
+        "@id": "olist_order_items_dataset.csv"
+      }
+    },
+    {
+      "@id": "kpi:IS_NEGATIVE_REVIEW",
+      "@type": [
+        "kpi:KPI",
+        "rec:RecommendedKPI"
+      ],
+      "name": "IS_NEGATIVE_REVIEW",
+      "description": "Is Negative Review. Derived from parent KPI row(s). Computed as 1 if REVIEW_SCORE <= 2 else 0. Unit: 0/1 flag.",
+      "rec:position": 8,
+      "rec:relevance": 2,
+      "rec:forDimension": [
+        {
+          "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3"
+        }
+      ],
+      "rec:dimensionLabels": {
+        "@value": [
+          "customer service interactions"
+        ],
+        "@type": "@json"
+      },
+      "rec:recommendationEvidence": [
+        {
+          "@type": "rec:RecommendationEvidence",
+          "rec:forDimension": [
+            {
+              "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:dimension:3"
+            }
+          ],
+          "rec:dimensionLabel": "customer service interactions",
+          "rec:reason": "Strong diagnostic evidence as negative reviews (score \u22642) often result from or indicate problematic customer service interactions that could lead to cancellations, though it doesn't directly measure the interaction itself."
+        }
+      ],
+      "rec:evidenceName": "IS_NEGATIVE_REVIEW",
+      "sector": {
+        "@id": "sector:reviews"
+      },
+      "formula": {
+        "expression": "1 if REVIEW_SCORE <= 2 else 0"
+      },
+      "parentKPI": [
+        {
+          "@id": "kpi:REVIEW_SCORE"
+        }
+      ],
+      "childKPI": [],
+      "derivedFrom": {
+        "kpi": [
+          {
+            "@id": "kpi:REVIEW_SCORE"
+          }
+        ],
+        "dataField": []
+      },
+      "rec:metadata": {
+        "@value": {
+          "discovered_via": [
+            {
+              "source": "semantic_seed",
+              "relation": null,
+              "direction": null,
+              "discovered_from": null
+            }
+          ]
+        },
+        "@type": "@json"
+      },
+      "rec:classification": "DIAGNOSTIC",
+      "rec:provenance": []
+    },
+    {
+      "@id": "kpi:REVIEW_SCORE",
+      "@type": "kpi:KPI",
+      "name": "REVIEW_SCORE",
+      "description": "Review Score. Collected from Olist source columns. Computed as review_score (1-5), by order_id (mean if multiple review rows per order). Unit: Score."
+    }
+  ]
+}

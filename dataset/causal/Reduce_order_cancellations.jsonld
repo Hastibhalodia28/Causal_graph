@@ -147,9 +147,6 @@
       ],
       "rec:recommends": [
         {
-          "@id": "kpi:IS_CANCELED"
-        },
-        {
           "@id": "kpi:DELIVERY_DAYS"
         },
         {
@@ -179,9 +176,6 @@
       ],
       "rec:goal": {
         "@id": "urn:kpi-analysis:872932fa1f4d8b2b402365722ef847a7f74615faaef3a8059e24c34e0e74b066:goal"
-      },
-      "rec:target": {
-        "@id": "kpi:IS_CANCELED"
       }
     },
     {
@@ -1170,7 +1164,7 @@
             }
           ],
           "rec:dimensionLabel": "customer service interactions",
-          "rec:reason": "Strong diagnostic evidence as negative reviews (score \u22642) often result from or indicate problematic customer service interactions that could lead to cancellations, though it doesn't directly measure the interaction itself."
+          "rec:reason": "Strong diagnostic evidence as negative reviews (score ≤2) often result from or indicate problematic customer service interactions that could lead to cancellations, though it doesn't directly measure the interaction itself."
         }
       ],
       "rec:evidenceName": "IS_NEGATIVE_REVIEW",

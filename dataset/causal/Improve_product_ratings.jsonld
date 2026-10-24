@@ -162,16 +162,10 @@
         },
         {
           "@id": "kpi:PHOTOS_QTY"
-        },
-        {
-          "@id": "kpi:PRODUCT_WEIGHT_G"
         }
       ],
       "rec:goal": {
         "@id": "urn:kpi-analysis:659d03f79b794cc79bd6a401aa1ea3d0ffabbaaede0bbfa9dd308bef4b4c76a7:goal"
-      },
-      "rec:target": {
-        "@id": "kpi:REVIEW_SCORE"
       }
     },
     {
@@ -391,7 +385,7 @@
             }
           ],
           "rec:dimensionLabel": "Customer support experience",
-          "rec:reason": "Directly identifies poor customer experiences (scores \u22642) that often result from inadequate support interactions and problem resolution."
+          "rec:reason": "Directly identifies poor customer experiences (scores ≤2) that often result from inadequate support interactions and problem resolution."
         },
         {
           "@type": "rec:RecommendationEvidence",
@@ -401,7 +395,7 @@
             }
           ],
           "rec:dimensionLabel": "Accuracy of product description and imagery",
-          "rec:reason": "Directly identifies negative reviews (scores \u22642), which are highly likely to be caused by significant discrepancies between the advertised product and what was received, including issues with appearance, size, or functionality."
+          "rec:reason": "Directly identifies negative reviews (scores ≤2), which are highly likely to be caused by significant discrepancies between the advertised product and what was received, including issues with appearance, size, or functionality."
         },
         {
           "@type": "rec:RecommendationEvidence",
@@ -411,7 +405,7 @@
             }
           ],
           "rec:dimensionLabel": "Rating distribution and review content",
-          "rec:reason": "Directly identifies negative reviews (scores \u22642), which is crucial for analyzing the spread of ratings and identifying problematic patterns"
+          "rec:reason": "Directly identifies negative reviews (scores ≤2), which is crucial for analyzing the spread of ratings and identifying problematic patterns"
         }
       ],
       "rec:evidenceName": "IS_NEGATIVE_REVIEW",

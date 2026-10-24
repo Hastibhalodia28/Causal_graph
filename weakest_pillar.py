@@ -106,8 +106,12 @@ def weakest_pillar(
 # ---------------------------------------------------------------------------
 
 def _kpi_id(value) -> str:
+    if value is None:
+        return ""
     if isinstance(value, dict):
         value = value.get("@id") or value.get("id") or ""
+    if not value:
+        return ""
     return str(value).split(":")[-1]
 
 
@@ -314,19 +318,10 @@ def _weakest_pillar_impl(
     elif declared:
         target_id = _require_catalog_kpi(declared, "rec:target")
     else:
-        # Fall back: first KPI that appears in catalog whose direction is not "diagnostic"
-        non_diag = [k for k in catalog_ids if catalog_pillar.get(k) and
-                    next((ki for ki in spec.kpis if ki.kpi_id == k), None) and
-                    next(ki for ki in spec.kpis if ki.kpi_id == k).direction != "diagnostic"]
-        if non_diag:
-            target_id = non_diag[0]
-            print(f"WARNING: no target specified; defaulting to first non-diagnostic KPI: {target_id}")
-        else:
-            raise ValueError(
-                "No graph sink. Set rec:KPIAnalysis.rec:target on the recommend list, "
-                "or pass target_kpi=, or add `direction: higher_better` KPIs to kpis.jsonld."
-            )
-    target_pillar_id = catalog_pillar.get(target_id)
+        # No single target — multi-target mode uses rec_targets only.
+        target_id = None
+        print("INFO: no single target declared — using multi-target mode (rec_targets).")
+    target_pillar_id = catalog_pillar.get(target_id) if target_id else None
 
     # ------------------------------------------------------------------
     # Step 0d — Expand selection from recommend list
@@ -364,7 +359,13 @@ def _weakest_pillar_impl(
         from_formulas = [k for k in catalog_ids if k in extras]
         selected = [k for k in catalog_ids if k in set(from_pillars) or k in extras]
 
-    if target_id not in selected:
+    # The full list of recommended KPIs that are in the selected set —
+    # used as multi-target list for influence modelling and by causal_graph.py.
+    rec_targets: list[str] = [k for k in recommended if k in set(selected)]
+    # If an explicit target was declared and isn't already in rec_targets, add it
+    if target_id and target_id not in rec_targets:
+        rec_targets = list(rec_targets) + [target_id]
+    if target_id and target_id not in selected:
         selected = list(selected) + [target_id]
 
     selection = {
@@ -373,13 +374,13 @@ def _weakest_pillar_impl(
         "from_pillars": from_pillars,
         "from_formulas": from_formulas,
         "selected": selected,
-        "target": target_id,
+        "rec_targets": rec_targets,
     }
     (OUTPUT / "selected_kpis.json").write_text(json.dumps(selection, indent=2), encoding="utf-8")
     print("recommended:", recommended)
     print("pillars:", pillars)
     print("selected:", selected)
-    print("target:", target_id)
+    print("rec_targets:", rec_targets)
 
     # ------------------------------------------------------------------
     # Step 1 — Build the panel using expression compiler (generic)
@@ -435,12 +436,13 @@ def _weakest_pillar_impl(
     print("ok", int((coverage.status == "ok").sum()), "/", len(coverage))
 
     # ------------------------------------------------------------------
-    # Validate target
+    # Validate rec_targets
     # ------------------------------------------------------------------
-    if target_id not in panel.columns:
+    rec_on_panel = [t for t in rec_targets if t in panel.columns]
+    if not rec_on_panel:
         raise ValueError(
-            f"target {target_id!r} was not compiled onto the panel. "
-            "Check the expression in kpis.jsonld and coverage.csv."
+            "No recommended target KPI was compiled onto the panel. "
+            "Check expressions in kpis.jsonld and coverage.csv."
         )
 
     # ------------------------------------------------------------------
@@ -448,11 +450,6 @@ def _weakest_pillar_impl(
     # ------------------------------------------------------------------
     pillar_of = dict(zip(meta["kpi_id"], meta["pillar"]))
     directions = dict(zip(meta["kpi_id"], meta["direction"]))
-
-    target_pillar = pillar_of.get(target_id, "")
-    driver_pillars = list(dict.fromkeys(
-        p for k in selected if (p := pillar_of.get(k)) and p != target_pillar
-    ))
 
     # Context vars from spec
     segment_var = next((cv.var_id for cv in spec.context_vars if cv.role == "segment"), None)
@@ -465,14 +462,26 @@ def _weakest_pillar_impl(
     # Post-outcome pillar names (for causal_graph.py's POST_TREATMENT_FORBIDDEN logic)
     post_outcome_pillars = [p.name for p in spec.pillars if p.stage == "post_outcome"]
 
+    # KG-based tiering: build a map of which context vars are derived from
+    # other context vars (e.g. ORDER_COMPLEXITY = N_ITEMS * N_SELLERS).
+    # causal_graph.py uses this to assign Tier 1 (derived) vs Tier 0 (root).
+    _ctx_ids = {cv.var_id for cv in spec.context_vars}
+    context_var_parents: dict[str, list[str]] = {}
+    for cv in spec.context_vars:
+        expr = getattr(cv, "expression", "") or ""
+        # Find references to other context var IDs inside the expression
+        parents = [vid for vid in _ctx_ids if vid != cv.var_id and re.search(r'\b' + re.escape(vid) + r'\b', expr)]
+        if parents:
+            context_var_parents[cv.var_id] = sorted(parents)
+
     run = {
         "grain": GRAIN,
         "segment": segment_var or (segment_alt_var or ""),
         "segment_alt": segment_alt_var if segment_alt_var != segment_var else None,
         "min_segment_n": 30,
-        "target": target_id,
-        "target_pillar": target_pillar,
-        "driver_pillars": driver_pillars,
+        # rec_targets: every recommended KPI — used for multi-target influence
+        # modelling and by causal_graph.py for KG-based tier assignment.
+        "rec_targets": rec_targets,
         "drop_from_influence": recode_ids,
         "drop_from_discovery": recode_ids,
         "inbound": inbound_vars,
@@ -484,6 +493,8 @@ def _weakest_pillar_impl(
         # Generic metadata passed through to causal_graph.py
         "collinear": [list(pair) for pair in spec.collinear],
         "post_outcome_pillars": post_outcome_pillars,
+        # KG-based tiering: context vars derived from other context vars
+        "context_var_parents": context_var_parents,
     }
     (OUTPUT / "run.json").write_text(json.dumps(run, indent=2), encoding="utf-8")
     print(json.dumps(run, indent=2))
@@ -492,7 +503,7 @@ def _weakest_pillar_impl(
     # Notebook 02 — grade weak pillars
     # ------------------------------------------------------------------
     SELECTED = [k for k in (selection.get("selected") or catalog_ids) if k in set(meta["kpi_id"])]
-    TARGET = run["target"]
+    REC_TARGETS = run["rec_targets"]
     DROP = set(run.get("drop_from_influence") or [])
     SEGMENT = run["segment"]
     MIN_N = int(run.get("min_segment_n") or 30)
@@ -511,24 +522,29 @@ def _weakest_pillar_impl(
                 return False
         return True
 
-    driver_ids = [
+    # All candidate driver KPIs — union of every KPI that could act as a driver
+    # in any of the per-target models (i.e. all selected, non-dropped, non-diagnostic
+    # KPIs that are on the panel).
+    all_candidate_ids = [
         k for k in SELECTED
-        if k != TARGET
-        and k in panel.columns
+        if k in panel.columns
         and k not in DROP
         and directions.get(k) != "diagnostic"
-        and class_coverage_ok(panel, TARGET, k)
     ]
-    dropped_cov = [
-        k for k in SELECTED
-        if k != TARGET and k in panel.columns and k not in DROP
-        and directions.get(k) != "diagnostic" and k not in driver_ids
-    ]
-    if dropped_cov:
-        print("dropped (missing on a target class):", dropped_cov)
-    NO_DRIVERS = len(driver_ids) == 0
+
+    # For the NO_DRIVERS check: if none of the recommended KPIs have any potential
+    # drivers across all the per-target models, skip grading entirely.
+    def _has_cross_pillar_drivers(t_kpi: str) -> bool:
+        t_pillar = pillar_of.get(t_kpi)
+        return any(
+            k for k in all_candidate_ids
+            if k != t_kpi and pillar_of.get(k) != t_pillar
+            and class_coverage_ok(panel, t_kpi, k)
+        )
+
+    NO_DRIVERS = not any(_has_cross_pillar_drivers(t) for t in REC_TARGETS if t in panel.columns)
     if NO_DRIVERS:
-        print("WARNING: no operational driver KPIs in the selected set. Skipping weak-pillar grading.")
+        print("WARNING: no cross-pillar driver KPIs found for any rec target. Skipping weak-pillar grading.")
 
     def build_goodness(df: pd.DataFrame, ids: list[str]) -> pd.DataFrame:
         out = df.copy()
@@ -539,14 +555,26 @@ def _weakest_pillar_impl(
             out[f"g_{kid}"] = (1.0 - p) if d == "lower_better" else p
         return out
 
-    def fit_influence(good: pd.DataFrame, ids: list[str], n_repeats: int = 8, seed: int = 0) -> pd.DataFrame:
+    def fit_influence(
+        good: pd.DataFrame,
+        ids: list[str],
+        target_kpi: str,
+        n_repeats: int = 8,
+        seed: int = 0,
+    ) -> pd.DataFrame:
+        """Fit one influence model: `ids` as drivers → `target_kpi` as target.
+
+        Returns a DataFrame with columns [kpi_id, phi, r2, pillar, target_kpi].
+        """
         gcols = [f"g_{k}" for k in ids if f"g_{k}" in good.columns]
         ids_ok = [c[2:] for c in gcols]
-        if not ids_ok:
-            return pd.DataFrame(columns=["kpi_id", "phi", "r2", "pillar"])
-        work = good[gcols + [TARGET]].dropna()
+        if not ids_ok or target_kpi not in good.columns:
+            return pd.DataFrame(columns=["kpi_id", "phi", "r2", "pillar", "target_kpi"])
+        work = good[gcols + [target_kpi]].dropna()
+        if len(work) < 10:
+            return pd.DataFrame(columns=["kpi_id", "phi", "r2", "pillar", "target_kpi"])
         X = work[gcols].to_numpy(dtype=float)
-        y = work[TARGET].to_numpy(dtype=float)
+        y = work[target_kpi].to_numpy(dtype=float)
         Xs = StandardScaler().fit_transform(X)
         binary = pd.Series(y).nunique(dropna=True) == 2
         if binary:
@@ -555,19 +583,77 @@ def _weakest_pillar_impl(
             pred = model.predict_proba(Xs)[:, list(model.classes_).index(pos)]
             r2 = float(average_precision_score(y == pos, pred))
             perm = permutation_importance(model, Xs, y, n_repeats=n_repeats, random_state=seed, scoring="average_precision")
-            print(f"metric PR-AUC={r2:.4f} (prevalence={float(np.mean(y == pos)):.4f})")
+            print(f"  [{target_kpi}] PR-AUC={r2:.4f} (prevalence={float(np.mean(y == pos)):.4f})")
         else:
             model = LinearRegression().fit(Xs, y)
             r2 = float(model.score(Xs, y))
             perm = permutation_importance(model, Xs, y, n_repeats=n_repeats, random_state=seed, scoring="r2")
-            print(f"metric R²={r2:.4f}")
+            print(f"  [{target_kpi}] R²={r2:.4f}")
         raw = np.maximum(perm.importances_mean, 0.0)
         if raw.sum() <= 1e-12:
             raw = np.abs(model.coef_).flatten()
         shares = raw / (raw.sum() + 1e-12) * max(r2, 0.0)
-        return pd.DataFrame(
-            {"kpi_id": ids_ok, "phi": shares, "r2": r2, "pillar": [pillar_of.get(k, "") for k in ids_ok]}
-        ).sort_values("phi", ascending=False)
+        return pd.DataFrame({
+            "kpi_id": ids_ok,
+            "phi": shares,
+            "r2": r2,
+            "pillar": [pillar_of.get(k, "") for k in ids_ok],
+            "target_kpi": target_kpi,
+        }).sort_values("phi", ascending=False)
+
+    def _aggregate_phi(phi_parts: list[pd.DataFrame]) -> pd.DataFrame:
+        """Average φ per (kpi_id, pillar) across all per-target models.
+
+        The returned DataFrame has the same schema as the old single-model phi
+        (columns: kpi_id, phi, r2, pillar) so all downstream code is unchanged.
+        The r2 column holds the mean R² across models where each driver appeared.
+        """
+        if not phi_parts:
+            return pd.DataFrame(columns=["kpi_id", "phi", "r2", "pillar"])
+        combined = pd.concat(phi_parts, ignore_index=True)
+        agg = (
+            combined.groupby(["kpi_id", "pillar"], as_index=False)
+            .agg(phi=("phi", "mean"), r2=("r2", "mean"))
+        )
+        return agg.sort_values("phi", ascending=False).reset_index(drop=True)
+
+    def _run_influence_loop(
+        df: pd.DataFrame,
+        rec_targets: list[str],
+        candidate_ids: list[str],
+        n_repeats: int = 8,
+        seed: int = 0,
+    ) -> pd.DataFrame:
+        """Run one fit_influence model per rec target; aggregate into one phi DataFrame."""
+        good = build_goodness(df, candidate_ids)
+        # Copy raw target columns onto goodness frame so fit_influence can find them
+        for t in rec_targets:
+            if t in df.columns and t not in good.columns:
+                good[t] = df[t].values
+
+        phi_parts: list[pd.DataFrame] = []
+        for i, t_kpi in enumerate(rec_targets):
+            if t_kpi not in df.columns:
+                print(f"  skip [{t_kpi}]: not on panel")
+                continue
+            t_pillar = pillar_of.get(t_kpi)
+            # Drivers = candidate KPIs from OTHER pillars only (never self, never same pillar)
+            drivers_for_t = [
+                k for k in candidate_ids
+                if k != t_kpi
+                and pillar_of.get(k) != t_pillar
+                and class_coverage_ok(df, t_kpi, k)
+            ]
+            if not drivers_for_t:
+                print(f"  skip [{t_kpi}]: no cross-pillar drivers")
+                continue
+            print(f"  influence model {i+1}/{len(rec_targets)}: target={t_kpi} drivers={drivers_for_t}")
+            phi_t = fit_influence(good, drivers_for_t, target_kpi=t_kpi,
+                                  n_repeats=n_repeats, seed=seed)
+            if not phi_t.empty:
+                phi_parts.append(phi_t)
+
+        return _aggregate_phi(phi_parts)
 
     def within_pillar_weights(phi_df: pd.DataFrame) -> pd.DataFrame:
         out = phi_df.copy()
@@ -631,9 +717,14 @@ def _weakest_pillar_impl(
         goodness = panel.copy()
         phi = pd.DataFrame(columns=["kpi_id", "phi", "r2", "pillar"])
     else:
-        goodness = build_goodness(panel, driver_ids)
-        goodness[TARGET] = panel[TARGET]
-        phi = fit_influence(goodness, driver_ids)
+        print(f"Running influence loop over {len(REC_TARGETS)} rec targets …")
+        phi = _run_influence_loop(panel, REC_TARGETS, all_candidate_ids)
+        # Build a goodness frame for segment grading (uses all candidate ids)
+        goodness = build_goodness(panel, all_candidate_ids)
+        # Ensure all rec target columns are present on goodness for grade_segments
+        for t in REC_TARGETS:
+            if t in panel.columns and t not in goodness.columns:
+                goodness[t] = panel[t].values
         print(phi)
 
     weights = within_pillar_weights(phi)
@@ -657,7 +748,7 @@ def _weakest_pillar_impl(
         state_summary = summarize(state_seg, seg_alt)
         print(state_summary)
 
-    # Bootstrap stability
+    # Bootstrap stability — each replicate runs the full per-target loop
     rng = np.random.default_rng(0)
     n = len(panel)
     records: dict[str, list[float]] = {}
@@ -665,11 +756,15 @@ def _weakest_pillar_impl(
     if not NO_DRIVERS:
         for b in range(B):
             boot = panel.iloc[rng.integers(0, n, size=n)].reset_index(drop=True)
-            gboot = build_goodness(boot, driver_ids)
-            gboot[TARGET] = boot[TARGET].to_numpy()
-            phib = fit_influence(gboot, driver_ids, n_repeats=4, seed=b)
+            phib = _run_influence_loop(boot, REC_TARGETS, all_candidate_ids,
+                                       n_repeats=4, seed=b)
             if phib.empty:
                 continue
+            # Goodness frame for this bootstrap replicate
+            gboot = build_goodness(boot, all_candidate_ids)
+            for t in REC_TARGETS:
+                if t in boot.columns and t not in gboot.columns:
+                    gboot[t] = boot[t].values
             wb = within_pillar_weights(phib)
             ib = pillar_infl(phib)
             sb = grade_segments(gboot, wb, ib, SEGMENT, MIN_N) if SEGMENT and SEGMENT in gboot.columns else pd.DataFrame()
@@ -723,8 +818,10 @@ def _weakest_pillar_impl(
     if len(phi):
         fig, ax = plt.subplots(figsize=(8, 4))
         ax.barh(phi["kpi_id"].iloc[::-1], phi["phi"].iloc[::-1], color="#2B6CB0")
-        ax.set_xlabel("φ (share of R²)")
-        ax.set_title(f"KPI influence on {TARGET}  (R²={float(phi.r2.iloc[0]):.3f})")
+        ax.set_xlabel("φ (mean share of R², aggregated over rec targets)")
+        n_models = len(REC_TARGETS)
+        mean_r2 = float(phi["r2"].mean()) if len(phi) else float("nan")
+        ax.set_title(f"KPI influence (aggregated over {n_models} targets,  mean R²={mean_r2:.3f})")
         fig.tight_layout()
         fig.savefig(FIGURES / "02_influence.png", dpi=160, bbox_inches="tight")
         plt.close(fig)
@@ -753,9 +850,12 @@ def _weakest_pillar_impl(
     # Primary candidates (same logic as original, now from spec)
     # ------------------------------------------------------------------
     from_formulas_set = set(selection.get("from_formulas") or [])
+    rec_targets_set = set(REC_TARGETS)
     if weak:
         weak_pillar_kpis = {k for k in SELECTED if pillar_of.get(k) in set(weak)}
-        keep = weak_pillar_kpis | from_formulas_set | {TARGET}
+        # Always keep: weak-pillar KPIs + formula dependencies + all rec targets
+        # (every rec target is a potential causal endpoint in causal_graph.py)
+        keep = weak_pillar_kpis | from_formulas_set | rec_targets_set
         primary_candidates = {k for k in SELECTED if k in keep}
     else:
         primary_candidates = set(SELECTED)
@@ -769,22 +869,24 @@ def _weakest_pillar_impl(
             "kpi_id": kid,
             "pillar": pillar_of.get(kid),
             "parent": list_parent.get(kid),
-            "target": kid == TARGET,
+            "rec_target": kid in rec_targets_set,  # True for all rec KPIs (tier-3 in causal graph)
             "primary_candidate": kid in primary_candidates,
         }
         for kid in SELECTED
     ]
     pd.DataFrame(sel_rows).to_csv(OUTPUT_MAIN / "selected_kpis.csv", index=False)
 
-    # Panel: keep selected KPIs + inbound context vars + target
+    # Panel: keep selected KPIs + inbound context vars + all rec_targets
     keep_cols: list[str] = []
-    for c in [GRAIN] + SELECTED + inbound_vars + [TARGET]:
+    for c in [GRAIN] + SELECTED + inbound_vars + REC_TARGETS:
         if c in panel.columns and c not in keep_cols:
             keep_cols.append(c)
     panel[keep_cols].to_csv(OUTPUT_MAIN / "panel.csv", index=False)
 
     main_run = dict(run)
     main_run["pillars"] = weak
+    # Ensure rec_targets is always present in main run.json consumed by causal_graph.py
+    main_run.setdefault("rec_targets", rec_targets)
     (OUTPUT_MAIN / "run.json").write_text(json.dumps(main_run, indent=2), encoding="utf-8")
 
     print("weakest_pillar main outputs ->", OUTPUT_MAIN)
